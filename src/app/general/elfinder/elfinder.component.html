@@ -1,0 +1,9 @@
+<div class="input-group">
+  <input type="text" 
+      [ngModelOptions]="{standalone: true}"
+      [(ngModel)]="inputValue" 
+      (input)="handleChange($event)" 
+      [id]="_id"
+      [placeholder]="placeholder" class="form-control" ><span class="input-group-btn" >
+  <button type="button" (click)="openElfinder($event)" class="btn btn-default">{{text}}</button></span>
+</div>

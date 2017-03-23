@@ -1,0 +1,20 @@
+<required-error *ngIf="required" [t]="t" [values]="values" ></required-error>
+<label for="">
+  <max-length *ngIf="maxLength" [max]=[maxLength] [t]="t" [current]="text.length"></max-length>
+</label>
+<app-ckeditor
+  [model]="text"
+  [key]="id + config.locale"
+  [config]="config.ckeditor"
+  (blur)="handleUpdate($event)"
+  (change)="handleTextUpdate($event)"
+  debounce="500">
+</app-ckeditor>
+
+<!-- <div *ngIf="!isEditing" class="panel panel-default">
+  <div class="panel-heading clearfix">
+    Нажмите на кнопку для редактирования <button (click)="edit()" class="btn btn-info pull-right"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+  </div>
+  <div class="panel-body" [innerHtml]="text"></div>  
+</div>
+ -->

@@ -1,0 +1,17 @@
+<form action="">
+  <div class="checkbox">
+    <label>
+      <input [checked]="wide" (change)="handleWideUpdate($event)" type="checkbox"> {{t.getItem('Растянуть на весь экран?')}}
+    </label>
+  </div>
+</form>
+<elfinder-gallery 
+  [images]="images" 
+  [url]="config.elfinder.url" 
+  [id]="id + config.locale"
+  [imgBaseUrl]="config.elfinder.imgBaseUrl"
+  [buttonText]="t.getItem('Выбрать изображение')"
+  [alertText]="t.getItem('Вы должны выбрать изображение')"
+  [lang]="config.elfinder.lang"
+  (onChange)="handleImagesUpdate($event)">
+</elfinder-gallery>

@@ -1,0 +1,41 @@
+<div *ngIf="warning" class="warning">
+  <alert type="warning">
+    {{warning}}
+  </alert>
+</div>
+
+<div *ngFor="let field of staticFieldsTop; trackBy: trackField">
+  <h3 class="text-center">{{field.name}} <span class="small">{{field.config.locale || ''}}</span></h3>
+  <field [id]="field.id" [index]="i"></field> 
+</div>
+
+<div class="container-fluid">
+  <div class="row" 
+    [style.marginTop]="'25px'"
+    [style.marginBottom]="'25px'">
+    <div class="col-md-12">
+      <h2 class="text-center">Добавьте поля</h2>
+    </div>
+    <div class="col-md-12 text-center">
+      <div class="btn-group">
+        <button 
+          type="button" 
+          *ngFor="let spec of fieldNames" 
+          (click)="addField(spec.name)" 
+          class="btn btn-success field-move">
+            {{ spec.trivialName }} <i [class]="spec.icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <field-list [locales]="locales" [fields]="fields"></field-list>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let field of staticFieldsBottom; trackBy: trackField">
+  <h3 class="text-center">{{field.name}} <span class="small">{{field.config.locale || ''}}</span></h3>
+  <field [id]="field.id" [index]="i"></field> 
+</div>

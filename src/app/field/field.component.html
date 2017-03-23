@@ -1,0 +1,26 @@
+
+<div class="field-content" [ngSwitch]="componentRender">
+  <div>
+
+    <headling *ngSwitchCase="consts.HEADLING" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"> </headling> 
+    
+    <cite *ngSwitchCase="consts.CITE" (update)="updateValues($event)" [id]="id" [config]="config" [values]="values" [t]="t" [id]="id"></cite>
+
+    <gallery *ngSwitchCase="consts.GALLERY"  [config]="config" (update)="updateValues($event)" [values]="values" [t]="t" [id]="id"> </gallery> 
+    
+    <wysiwyg *ngSwitchCase="consts.WYSIWYG" (update)="updateValues($event)"  [config]="config" [values]="values" [t]="t" [id]="id"></wysiwyg>
+    
+    <highlighted-text *ngSwitchCase="consts.HIGHLIGHTED_TEXT" (update)="updateValues($event)"  [config]="config" [values]="values" [t]="t" [id]="id"></highlighted-text>
+    
+    <picture *ngSwitchCase="consts.PICTURE" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"></picture>
+    
+    <button-field *ngSwitchCase="consts.BUTTON" (update)="updateValues($event)" [id]="id" [config]="config" [values]="values" [t]="t"  [id]="id"></button-field>
+
+    <video-field *ngSwitchCase="consts.VIDEO" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"></video-field>
+    
+    <backgrounded-text *ngSwitchCase="consts.BACKGROUNDED_TEXT" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"></backgrounded-text>
+    
+
+    <div *ngSwitchCaseDefault>lol</div>
+  </div>
+</div>

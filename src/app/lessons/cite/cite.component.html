@@ -1,0 +1,11 @@
+<form>
+  <label>
+    <input [checked]="alternative" (change)="handleAlt($event)" type="checkbox"> {{t.getItem('Альтернативное выделение?')}}
+  </label>
+  <div class="form-group" style="font-style: normal;">
+    <label [for]="id">{{ t.getItem('Цитата')}}</label>
+    <textarea width="100%" required class="form-control" [ngModelOptions]="{standalone: true}"
+      [(ngModel)]="text" [id]="id" (change)="handleUpdate($event)" id="headling" [placeholder]="t.getItem('Введите цитату')">
+      </textarea>
+  </div>
+</form>

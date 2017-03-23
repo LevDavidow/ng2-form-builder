@@ -1,0 +1,11 @@
+<elfinder-gallery 
+  [images]="images" 
+  [url]="config.elfinder.url" 
+  [id]="id + config.locale"
+  [imgBaseUrl]="config.elfinder.imgBaseUrl"
+  [buttonText]="t.getItem('Выбрать изображение')"
+  [alertText]="t.getItem('Вы должны выбрать изображение')"
+  [singlePicture]="false"
+  [lang]="config.elfinder.lang"
+  (onChange)="handleImagesUpdate($event)">
+</elfinder-gallery>

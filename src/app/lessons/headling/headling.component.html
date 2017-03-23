@@ -1,0 +1,16 @@
+<form-group [rules]="config && config.validation" [values]="values">
+  <label [for]="id">{{t.getItem('Заголовок')}}</label> 
+  <max-length [max]="maxLength" [t]="t" [current]="text.length"></max-length>
+  <input 
+    [attr.maxlength]="maxLength" 
+    type="text" 
+    width="100%" 
+    class="form-control" 
+    [value]="text" 
+    [id]="id" 
+    (blur)="handleUpdate()" 
+    (input)="handleTextUpdate($event.target.value)" 
+    id="headling" 
+    [placeholder]="t.getItem('Введите заголовок')">
+</form-group>
+

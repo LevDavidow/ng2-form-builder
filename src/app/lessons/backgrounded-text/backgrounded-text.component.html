@@ -1,0 +1,26 @@
+<div style="margin-bottom: 25px">
+  <elfinder-gallery 
+  [images]="images" 
+  [url]="config.elfinder.url" 
+  [id]="id + config.locale"
+  [singlePicture]="true"
+  [imgBaseUrl]="config.elfinder.imgBaseUrl"
+  [buttonText]="t.getItem('Выбрать изображение')"
+  [alertText]="t.getItem('Вы должны выбрать изображение')"
+  [lang]="config.elfinder.lang"
+  (onChange)="handleImagesUpdate($event)">
+</elfinder-gallery>
+</div>
+<form-group [rules]="config && config.validation" [values]="values">
+  <label *ngIf="maxLength" for="">
+    <max-length [max]=[maxLength] [t]="t" [current]="text.length"></max-length>
+  </label>
+<app-ckeditor
+  [model]="text"
+  [key]="id + config.locale"
+  [config]="config.ckeditor"
+  (blur)="handleUpdate()"
+  (change)="handleTextUpdate($event)"
+  debounce="500">
+</app-ckeditor>
+</form-group>

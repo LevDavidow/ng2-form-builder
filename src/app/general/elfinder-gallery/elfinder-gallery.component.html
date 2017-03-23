@@ -1,0 +1,32 @@
+<div 
+  class="row" 
+  style="display: flex; flex-wrap: wrap;" 
+  *ngIf="images && images.length > 0"
+  [dragula]="dradId" [dragulaModel]="images"
+  >
+  <div 
+    *ngFor="let image of images; let i = index"
+    class="col-xs-6 col-md-3">
+    <div class="thumbnail" style="position: relative;">
+      <i
+        class="fa fa-times-circle fa-2x pull-right" 
+        (click)="removeImage(i)"
+        style="position: absolute; right: 15px; top: 15px; cursor: pointer; color: #d9534f"></i>
+      <img [src]="imgBaseUrl + image">
+    </div>
+  </div>
+</div>
+
+<div class="validation">
+  <alert type="danger" *ngIf="!images || images.length === 0">
+    {{alertText}}
+  </alert>
+</div>
+
+
+
+<div class="tab-pane active">
+  <div class="input-group">
+    <button type="button" (click)="openElfinder($event)" class="btn btn-default">{{buttonText}}</button>
+  </div>
+</div>

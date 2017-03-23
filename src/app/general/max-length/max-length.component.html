@@ -1,0 +1,6 @@
+<strong 
+  *ngIf="max" 
+  class="pull-right" 
+  [class.text-danger]="current >= max">
+  {{current}} / {{max}} {{t.getItem('символов')}}
+</strong>

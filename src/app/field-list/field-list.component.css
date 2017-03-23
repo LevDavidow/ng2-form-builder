@@ -1,0 +1,29 @@
+.field-controls {
+  align-items: center;
+  margin-bottom: 10px;
+  text-align: center;
+  position: relative;
+}
+.list-group-item {
+  margin-bottom: 15px;
+}
+.buttons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.buttons_right {
+  right: auto;
+}
+
+.field-controls .move {
+  text-align: left;
+  width: auto;
+  text-align: center;
+  margin: 0 10px;
+}
+.field-controls .delete {
+  text-align: left;
+  margin: 0 10px;
+}

@@ -1,0 +1,11 @@
+<div #root [style.minHeight]="minHeight" class="background">
+  <ckeditor
+    [(ngModel)]="model"
+    [config]="config"
+    (ready)="handleReady($event)"
+    (change)="handleUpdate($event)"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    [debounce]="debounce">
+  </ckeditor>
+</div>

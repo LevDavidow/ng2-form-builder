@@ -1,0 +1,12 @@
+<div *ngIf="valid" class="">
+  <img [src]="imgUrl" class="video_thumb">
+</div>
+
+<alert type="danger" *ngIf="!valid">
+  {{t.getItem('Введите URL видео на Youtube или Vimeo')}}
+</alert>
+
+<div [style.width]="'100%'" class="input-group">
+  <input type="text" [ngModelOptions]="{standalone: true}" required
+      [(ngModel)]="text" (input)="handleTextUpdate($event.target.value)" [placeholder]="t.getItem('URL видео')" class="form-control" >
+</div>

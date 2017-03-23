@@ -1,0 +1,45 @@
+<form action="">
+
+  <label for="">
+    {{t.getItem('Текст на кнопке')}}
+    <input type="text" class="form-control" required
+      [ngModelOptions]="{standalone: true}"
+      [(ngModel)]="content" 
+      (input)="handleUpdate($event)"
+      [placeholder]="t.getItem('Введите')" required >
+  </label>
+  
+  <div class="radio">
+    <label>
+      <input type="radio" [(ngModel)]="type" (ngModelChange)="handleTypeUpdate($event)"  name="type" value="current" />
+      {{ t.getItem('В текущем окне') }}
+    </label>
+  </div>
+  
+  <div class="radio">
+    <label>
+      <input type="radio" [(ngModel)]="type" (ngModelChange)="handleTypeUpdate($event)" name="type" value="download" />
+       {{ t.getItem('Скачивание') }}
+    </label>
+  </div>
+
+  <div class="radio">
+    <label>
+      <input type="radio"  [(ngModel)]="type" (ngModelChange)="handleTypeUpdate($event)"  name="type" value="blank" />
+      {{ t.getItem('В новом окне') }}
+    </label>
+  </div>
+
+</form>
+<label for="">
+  {{t.getItem('Вставте ссылку или выберите файл')}}
+  <elfinder
+    [fileUrl]="text" 
+    [url]="config.elfinder.url" 
+    [id]="id + config.locale"
+    [text]="t.getItem('Загрузить файл')"
+    [placeholder]="t.getItem('Введите ссылку на файл')"
+    [lang]="config.elfinder.lang"
+    (onChange)="handleTextUpdate($event)">
+  </elfinder>
+</label>

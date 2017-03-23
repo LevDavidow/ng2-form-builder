@@ -1,0 +1,53 @@
+<ul [dragula]="dragId" [dragulaModel]="fields" class="list-group" *ngIf="fields">
+  <li 
+    *ngFor="let field of fields;  let i = index; trackBy:trackFields" 
+    class="list-group-item" 
+    [@flyInOut]="'in'">
+    <div class="field-controls clearfix">
+      <div class="name">
+          <h3>{{ field.name }}</h3>
+      </div>
+        <div *ngIf="fields.length > 1" class="buttons buttons_right">
+          <button
+            type="button"
+            (click)="upField(i)"
+            [class.disabled]="i === 0"
+            class="btn btn-info move">
+              <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            (click)="downField(i)"
+            [class.disabled]="i === fields.length - 1"
+            class="btn btn-info move">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="buttons">
+          <button
+            type="button"
+            class="btn btn-info move field-move">
+              <i class="fa fa-arrows field-move" aria-hidden="true"></i>
+              {{ locales.getItem('Передвинуть поле') }}
+          </button>
+          <button 
+            mwlConfirmationPopover
+            [title]="title"
+            type="button"
+            [message]="message"
+            [confirmText]="'Удалить'"
+            [cancelText]="'Отмена'"
+            placement="left"
+            (confirm)="removeField(field.id)"
+            class="btn btn-danger delete"><i class="fa fa-trash-o" aria-hidden="true"></i>
+            {{locales.getItem('Удалить') }}
+          </button>
+        
+        </div>
+        
+      
+    </div> 
+    <field [id]="field.id" [index]="i"></field> 
+  </li>
+</ul>
