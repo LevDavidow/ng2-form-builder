@@ -9,11 +9,13 @@ import {
   animate
 } from '@angular/core';
 
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
 import { Field, Locales } from '../models';
 
-import { FieldsService } from '../services/fields.service';
+import { generateUID, isCurrentDragula } from '../helpers';
 
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { FieldsService } from '../services/fields.service';
 
 @Component({
   selector: 'field-list',
@@ -51,7 +53,7 @@ export class FieldListComponent implements OnInit {
     private dragulaService: DragulaService 
   ) {
     
-    this.dragId = FieldListComponent.generateUID(); 
+    this.dragId = generateUID(); 
 
     dragulaService.setOptions(this.dragId, {
       moves: function (el, container, handle) {
@@ -60,28 +62,10 @@ export class FieldListComponent implements OnInit {
     });
 
     dragulaService.dropModel.subscribe((value) => {
-      if (FieldListComponent.isCurrentDragula(value, this.dragId)) {
+      if (isCurrentDragula(value, this.dragId)) {
         this.onChange();
       } 
     })
-  }
-
-  private static isCurrentDragula(dragulaValue, id) {
-    return dragulaValue[0] === id;
-  }
-
-  private static generateUID(): string {
-    let i, random;
-    let result = '';
-
-    for (i = 0; i < 15
-      ; i++) {
-        random = Math.random() * 16 | 0;
-        result += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
-            .toString(16);
-    }
-
-    return result;
   }
 
   private trackFields(index, field) {
@@ -133,7 +117,7 @@ export class FieldListComponent implements OnInit {
   }
   onChange() {
     this.fieldsService.updateFields(this.fields);
-    console.log(this.fieldsService);
+    console.log(this.fields);
   }
 
 }

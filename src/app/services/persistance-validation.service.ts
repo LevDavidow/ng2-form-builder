@@ -16,6 +16,34 @@ export type TValidationErrors = Array<{
     errors: string[]
 }>;
 
+
+function isSpecialTestOptionsValid(options) {
+  if (!options || options.length < 2) {
+    return false
+  }
+
+  const noSelected = !options.filter(opt => opt.correct).length;
+
+  if (noSelected) {
+    return false;
+  }
+
+  let hasTextCounter = 0;
+
+  for (let option of options) {
+    if (option.text) {
+      hasTextCounter += 1;
+    }
+  }
+
+  if (hasTextCounter < 2) {
+    return false;
+  }
+
+  return true;
+
+}
+
 const validationRules = {
   required(values, type) {
     
@@ -27,6 +55,28 @@ const validationRules = {
       result = result || isInvalidValue(values[value]);
       return result;
     }, false)
+  },
+  specialTest(values, type) {
+     return !isSpecialTestOptionsValid(values.options) && values.allowCustom === false
+  },
+  byKeys(values, configs) {
+    return !Object.keys(configs)
+      .reduce((result, name) => {
+
+        const rules = 
+          Object
+            .keys(configs[name])
+            .map((rule) => {
+              return validationRules[rule]({
+                [name]: values[name]
+              }, configs[name][rule])
+            });
+
+        result = result || rules.filter(isValid => !isValid).length > 0;
+
+        return result;
+
+      } ,false)
   },
   ['max-length'](values, length) {
     return values.text.length <= length;
@@ -56,6 +106,7 @@ export class PersistanceValidationService {
   }
 
   private validateValuesByRule(rule, key, values) {
+    console.log(rule, key, values);
     return validationRules[rule](values, key);
   }
 
@@ -83,6 +134,7 @@ export class PersistanceValidationService {
   } 
 
   public check(fieldsById, locale):void {
+
     this.validationErrors[locale] = Object
       .keys(fieldsById)
       .map(id => fieldsById[id])

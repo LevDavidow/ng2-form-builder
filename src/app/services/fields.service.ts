@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import { FieldsStorageService } from './fields-storage.service'
+
+import { FieldHooksService } from './field-hooks.service'
 
 import { PersistanceValidationService } from './persistance-validation.service';
 
@@ -38,7 +40,11 @@ export class FieldsService {
   public fieldsChange: BehaviorSubject<FieldsChange>;
   public previewChange: BehaviorSubject<boolean>;
   public fieldChange: BehaviorSubject<String>  = new BehaviorSubject('');
+  public fieldCountChange: Subject<FieldComponentName> = new Subject();
+
   public fieldNames: FieldName[];
+
+  public inited: Subject<string> = new Subject();
 
   public fieldsById: FieldsById = {};
   public fieldsOrder: string[] = [];
@@ -63,11 +69,14 @@ export class FieldsService {
     this.sharedFields.fieldUpdated.subscribe(this.fieldUpdated.bind(this));
   }
 
-
+  get fieldsByIdArray() {
+    return Object.keys(this.fieldsById).map(id => this.fieldsById[id]);
+  }
 
   public init(config) {
     this.config = config;
     this.applyConfig();
+    this.inited.next('done');
   }
 
   private applyConfig(): void {
@@ -170,7 +179,7 @@ export class FieldsService {
 
   updateField(id: string, values: Object): void {
     const target = this.fieldsById[id];
-    
+
     target.touched = true;
 
     if (this.validation.isFieldNotEmpty(target) || target.touched) {
@@ -190,18 +199,28 @@ export class FieldsService {
   }
 
   private fieldAdded(config) {
-
-    this.fieldsById[config.id] = this.createField(
+    const target = this.createField(
       config.component, config.id
     );
-
+    this.fieldsById[config.id] = target;
+    
     this.notifyFieldsChange();
+    this.notifyFieldCountChange(target.component);
   }
+
 
   private fieldUpdated(config) {
     const target: Field = this.fieldsById[config.id];
+    
+    const forceSyncValues = target.config &&  target.config.forceSync &&
+      target.config.forceSync.reduce((shouldUpdate, key) => {
+        shouldUpdate = shouldUpdate || target.values[key] !== config.values[key];
+        return shouldUpdate
+      }, false);
 
-    if (!target.touched) {
+   
+
+    if (!target.touched || forceSyncValues) {
       target['values'] = config.values;
       this.notifyFieldChange(config.id);
       this.autocompleted.setAutocomplete(this.locale);
@@ -215,7 +234,9 @@ export class FieldsService {
   }
 
   private fieldRemoved(id) {
+    const component = this.fieldsById[id].component;
     delete this.fieldsById[id];
+    this.notifyFieldCountChange(component);
   }
 
   addField(
@@ -267,13 +288,18 @@ export class FieldsService {
   }
 
   notifyFieldsChange(): void {
-    
+    this.save();
+
     this.fieldsChange.next({
       fields: this.fieldsById,
       order: this.fieldsOrder
     });
 
-    this.save();
+   
+  }
+
+  notifyFieldCountChange(component) {
+    this.fieldCountChange.next(component);
   }
 
   notifyFieldChange(id?: string) {

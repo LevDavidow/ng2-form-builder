@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, } from '@angular/core';
 
 import { Field, Locales } from '../../models';
 
@@ -8,12 +8,14 @@ import { FieldComponentName } from '../../consts';
 
 import { FieldsService } from '../../services/fields.service';
 import { ElfinderHeightMemoService } from '../../elfinder-height-memo.service';
+import { FieldHooksService } from '../../services/field-hooks.service';
+
 
 @Component({
   selector: 'list-wrapper',
   templateUrl: './list-wrapper.component.html',
   styleUrls: ['./list-wrapper.component.css'],
-  providers: [FieldsService, ElfinderHeightMemoService]
+  providers: [FieldsService, FieldHooksService, ElfinderHeightMemoService, ]
 })
 export class ListWrapperComponent implements OnInit {
   private locales: Locales;
@@ -23,7 +25,7 @@ export class ListWrapperComponent implements OnInit {
   @Input() config;
   @Input() warning;
   
-  constructor(public fieldsService: FieldsService) {}
+  constructor(public fieldsService: FieldsService, private hooks: FieldHooksService) {}
 
   private trackField(index, field) {
     return field.id;

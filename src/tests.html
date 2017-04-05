@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Forms</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="https://use.fontawesome.com/f9308a49e3.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+  
+  
+  <script src="https://cdn.ckeditor.com/4.5.11/full-all/ckeditor.js"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/elfinder/2.1.21/css/elfinder.full.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elfinder/2.1.21/js/elfinder.full.js"></script>
+  
+<script src="http://scorim_adm.dev/assets/3a35b9d8/js/bootstrap.js"></script>
+<script src="http://scorim_adm.dev/assets/22f1c1c3/elfinder.callback.js"></script>
+
+</head>
+
+<body>
+<form action="">
+  <app-root config='{
+    "staticFields": {
+      "fcounter": {
+		"trivialName": "Колличество баллов",
+        "type": "COUNTER",
+        "config": {
+          "reduce": {
+			"type": "TEST",
+			"key": "points"
+          },
+          "locales": {
+            "Заголовок": "Заголовок",
+            "Введите заголовок": "Введите заголовок",
+            "Заполните обязательное поле": "Заполните обязательное поле",
+            "символов": "символов"
+          }
+        }
+      },
+      "f1": {
+        "trivialName": "Заголовок теста",
+        "type": "HEADLING",
+        "config": {
+          "validation": {
+            "required": true,
+            "max-length": 100
+          },
+          "locales": {
+            "Заголовок": "Заголовок",
+            "Введите заголовок": "Введите заголовок",
+            "Заполните обязательное поле": "Заполните обязательное поле",
+            "символов": "символов"
+          }
+        }
+      },
+      "f2": {
+        "trivialName": "Описание теста",
+        "type": "WYSIWYG",
+        "config": {
+          "locales": {
+            "Заполните обязательное поле": "Заполните обязательное поле",
+            "символов": "символов"
+          },
+          "validation": {
+            "required": true,
+            "max-length": 1000
+          },
+          "ckeditor": {
+            "ckeditor": "divarea",
+            "removePlugins": "elementspath",
+            "removeButtons": "Underline,Subscript,Superscript,Source,Image,Styles",
+            "toolbarGroups": [
+              {"name": "basicstyles", "groups": [ "basicstyles", "cleanup" ] },
+              {"name": "paragraph", "groups": [ "list", "indent", "blocks", "align", "bidi", "paragraph" ] },
+              {"name": "editing", "groups": [ "find", "selection", "spellchecker", "editing" ] },
+              {"name": "clipboard", "groups": [ "clipboard", "undo" ] },
+              {"name": "links", "groups": [ "links" ] },
+              {"name": "tools", "groups": [ "tools" ] },
+              {"name": "others", "groups": [ "others" ] },
+              {"name": "styles", "groups": [ "styles" ] },
+              {"name": "colors", "groups": [ "colors" ] },
+              {"name": "about", "groups": [ "about" ] }
+            ]
+          }
+        }
+      }
+    },
+    "dynamicFields": {
+      "TEST": {
+         "trivialName": "Вопрос теста",
+         "config": {
+         "validation": {
+			"byKeys": {
+				"name": {
+					"required": true
+				},
+				"points": {
+					"required": true
+				},
+				"description": {
+					"required": true
+				}
+			},
+			"specialTest": "true"
+         },
+          "forceSync": ["points"],
+          "elfinder": {
+            "url": "http://scorim_adm.dev/elfinder/manager",
+            "lang": "ru",
+            "imgBaseUrl": "http://uteka_adm.dev"
+          },
+          "ckeditor": {
+            "ckeditor": "divarea",
+            "skin": "flat,/ckeditor/flat/",
+            "removePlugins": "elementspath",
+            "removeButtons": "Underline,Subscript,Superscript,Source,Image,Styles",
+            "toolbarGroups": [
+              {"name": "basicstyles", "groups": [ "basicstyles", "cleanup" ] },
+              {"name": "paragraph", "groups": [ "list", "indent", "blocks", "align", "bidi", "paragraph" ] },
+              {"name": "editing", "groups": [ "find", "selection", "spellchecker", "editing" ] },
+              {"name": "clipboard", "groups": [ "clipboard", "undo" ] },
+              {"name": "links", "groups": [ "links" ] },
+              {"name": "tools", "groups": [ "tools" ] },
+              {"name": "others", "groups": [ "others" ] },
+              {"name": "styles", "groups": [ "styles" ] },
+              {"name": "colors", "groups": [ "colors" ] },
+              {"name": "about", "groups": [ "about" ] }
+            ]
+          },
+          "locales": {
+            "Цитата": "Цитата",
+            "Введите цитату": "Введите цитату",
+            "Альтернативное выделение?": "Альтернативное выделение?",
+            "Заполните обязательное поле": "Заполните обязательное поле",
+            "символов": "символов"
+          }
+        }
+      }
+    },
+    "config": {
+      "persist": {
+        "type": "input",
+        "submitButtonId": "submitStatus",
+        "selectors": [
+          {
+            "selector": "#save_fields",
+            "name": "Русский"
+          },
+          {
+            "selector": "#save_fields2",
+            "name": "Украинский"
+          }
+        ]
+      },
+      "currentLocale": "ru",
+      "locales": {
+        "Передвинуть поле": "Передвинуть поле",
+        "Удалить": "Удалить",
+        "Проверте следующие поля языка": "Проверьте следующие поля языка"
+      }
+    }
+  }'>Loading...</app-root>
+  <input type="text" id="save_fields" value='[{"id":"5e2731cfeb","values":{"images":["/files/test.jpg"],"wide":false},"config":{"elfinder":{"url":"/academy-files1/manager","lang":"ru","imgBaseUrl":"http://uteka_academy.dev"},"locales":{"Выбрать изображение":"Выбрать изображение","Вы должны выбрать изображение":"Вы должны выбрать изображение","Растянуть на весь экран?":"Растянуть на весь экран?"}},"name":"Картинка","component":"PICTURE","locales":{"storage":{"Выбрать изображение":"Выбрать изображение","Вы должны выбрать изображение":"Вы должны выбрать изображение","Растянуть на весь экран?":"Растянуть на весь экран?"}},"defaultValues":{"wide":false,"images":[]},"changed":true}]'>
+  <input type="text" id="save_fields2">
+  <button type="submit" id="submitStatus" class="btn btn-success">Лол</button>
+</form>
+</body>
+</html>

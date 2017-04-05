@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+//Принудительно синхронизировать баллы.
+//
+
 interface IFieldsStorage {
   [locale: string]: any
 }

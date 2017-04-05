@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { FieldsNormalizeService } from './fields-storage.service';
+import { FieldsStorageService } from './fields-storage.service';
 
-describe('FieldsNormalizeService', () => {
+describe('FieldsStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FieldsNormalizeService]
+      providers: [FieldsStorageService]
     });
   });
 
-  it('should ...', inject([FieldsNormalizeService], (service: FieldsNormalizeService) => {
+  it('should ...', inject([FieldsStorageService], (service: FieldsStorageService) => {
     expect(service).toBeTruthy();
   }));
 });

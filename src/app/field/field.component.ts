@@ -10,18 +10,7 @@ import {
   Locales 
 } from '../models';
 
-import {
-  FieldComponentName,
-  HEADLING, 
-  GALLERY, 
-  CITE, 
-  WYSIWYG, 
-  BACKGROUNDED_TEXT, 
-  PICTURE, 
-  VIDEO, 
-  BUTTON, 
-  HIGHLIGHTED_TEXT
-} from '../consts';
+import  * as fieldNames from  '../consts';
 
 import { FieldsService } from '../services/fields.service';
 
@@ -42,18 +31,8 @@ export class FieldComponent implements OnInit, OnDestroy {
 
   private previewSubsripbtion;
   private valuesSubscription;
-  private componentRender: FieldComponentName;
-  private consts = {
-    HEADLING, 
-    GALLERY, 
-    CITE, 
-    WYSIWYG, 
-    BACKGROUNDED_TEXT, 
-    PICTURE, 
-    VIDEO, 
-    BUTTON, 
-    HIGHLIGHTED_TEXT
-  }
+  private componentRender: fieldNames.FieldComponentName;
+  private consts = fieldNames;
   
   constructor(private fieldsService: FieldsService) {}
 

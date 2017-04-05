@@ -3,9 +3,9 @@
     *ngFor="let field of fields;  let i = index; trackBy:trackFields" 
     class="list-group-item" 
     [@flyInOut]="'in'">
-    <div class="field-controls clearfix">
+    <div [class]="'field-controls clearfix field_' + field.component">
       <div class="name">
-          <h3>{{ field.name }}</h3>
+          <h3>{{ field.values.name || field.name }} </h3>
       </div>
         <div *ngIf="fields.length > 1" class="buttons buttons_right">
           <button

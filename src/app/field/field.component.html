@@ -20,6 +20,9 @@
     
     <backgrounded-text *ngSwitchCase="consts.BACKGROUNDED_TEXT" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"></backgrounded-text>
     
+    <field-counter *ngSwitchCase="consts.COUNTER" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"></field-counter>
+
+    <field-test *ngSwitchCase="consts.TEST" (update)="updateValues($event)" [config]="config" [values]="values" [t]="t" [id]="id"></field-test>
 
     <div *ngSwitchCaseDefault>lol</div>
   </div>

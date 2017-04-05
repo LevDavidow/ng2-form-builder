@@ -38,7 +38,12 @@ import { MaxLengthComponent } from './general/max-length/max-length.component';
 import { RequiredErrorComponent } from './general/required-error/required-error.component';
 
 import { PersistanceValidationService } from './services/persistance-validation.service';
+import { FieldHooksService } from './services/field-hooks.service';
+
 import { FormGroupComponent } from './general/form-group/form-group.component';
+import { CounterComponent } from './tests/counter/counter.component';
+import { TestComponent } from './tests/test/test.component';
+//import { DraglistComponent } from './general/draglist/draglist.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,9 @@ import { FormGroupComponent } from './general/form-group/form-group.component';
     MaxLengthComponent,
     RequiredErrorComponent,
     FormGroupComponent,
+    CounterComponent,
+    TestComponent,
+  //  DraglistComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +86,7 @@ import { FormGroupComponent } from './general/form-group/form-group.component';
       confirmButtonType: 'danger' // set defaults here
     })
   ],
-  providers: [PersistanceValidationService],
+  providers: [PersistanceValidationService, FieldHooksService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

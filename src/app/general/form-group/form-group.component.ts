@@ -25,6 +25,7 @@ export class FormGroupComponent implements OnInit, OnDestroy, OnChanges {
     return !this.rules;
   }
   validate() {
+    console.log(this);
     if (this.noRules()) {
       this.hasError = false;
     } else {
@@ -41,6 +42,8 @@ export class FormGroupComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    this.unsubscribeErrors();
+    if (this.unsubscribeErrors) {
+      this.unsubscribeErrors.unsubscribe();
+    }
   }
 }

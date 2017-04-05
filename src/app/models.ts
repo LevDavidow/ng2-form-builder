@@ -53,6 +53,8 @@ export interface FieldsById {
 export interface IFieldConfig {
   validation?: Object,
   bottom?: boolean,
+  reduce?: Object,
+  forceSync?: string[],
   locale?: string,
   ckeditor?: Object,
   elfinder?: Object,

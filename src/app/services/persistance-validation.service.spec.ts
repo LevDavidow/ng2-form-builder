@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { HttpPersistanceService } from './http-persistance.service';
+import { PersistanceValidationService } from './persistance-validation.service';
 
-describe('HttpPersistanceService', () => {
+describe('PersistanceValidationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttpPersistanceService]
+      providers: [PersistanceValidationService]
     });
   });
 
-  it('should ...', inject([HttpPersistanceService], (service: HttpPersistanceService) => {
+  it('should ...', inject([PersistanceValidationService], (service: PersistanceValidationService) => {
     expect(service).toBeTruthy();
   }));
 });

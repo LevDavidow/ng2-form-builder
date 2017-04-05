@@ -17,6 +17,8 @@ import {
   Cite,
 } from './lessons/models';
 
+import { Test, Counter } from './tests/models';
+
 import {
   FieldComponentName,
   HEADLING, 
@@ -27,7 +29,9 @@ import {
   PICTURE, 
   VIDEO, 
   BUTTON, 
-  HIGHLIGHTED_TEXT
+  HIGHLIGHTED_TEXT,
+  TEST,
+  COUNTER
 } from './consts';
 
 export default class FieldsBuilder {
@@ -136,8 +140,12 @@ export default class FieldsBuilder {
         return new Button(config);
       case HIGHLIGHTED_TEXT: 
         return new HiglightedText(config);
+      case COUNTER:
+        return new Counter(config);
+      case TEST:
+        return new Test(config);
       default:
-        alert(`Unrecognized field ${config.component}`);
+        console.error(`Unrecognized field ${config.component}`);
     }
   }
 }

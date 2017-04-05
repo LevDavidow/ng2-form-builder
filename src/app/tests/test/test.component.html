@@ -1,0 +1,107 @@
+<form-group [rules]="config && config.validation" [values]="values">
+	<div class="validation">
+		<alert type="danger">Вопрос сформирован некорректно!</alert>	
+		<alert type="warning">Необходимо ввести заголовок и описание вопроса, а также либо дать пользователю возможность указать свой ответ, либо ввести больше двух варинатов ответа на выбор.
+		</alert>	
+	</div>
+</form-group>
+
+<form-group [rules]="config && config.validation && config.validation.byKeys.name" [values]="{text: values.name}">
+  <label>{{t.getItem('Заголовок вопроса')}}</label> 
+  <max-length *ngIf="name" [max]="maxLength" [t]="t" [current]="name.length"></max-length>
+  <input 
+    [attr.maxlength]="maxLength" 
+    type="text" 
+    width="100%" 
+    class="form-control" 
+    [value]="questionName" 
+    (blur)="handleUpdate()" 
+    (input)="handleNameUpdate($event.target.value)" 
+    id="headling" 
+    [placeholder]="t.getItem('Введите заголовок')">
+</form-group>
+
+<div class="form-group">
+  <label [for]="name">{{t.getItem('Стоимость в баллах')}} 
+  	<input 
+	    [attr.maxlength]="maxLength" 
+	    type="number" 
+	    [id]="name"
+	    width="100%" 
+	    min="1"
+	    class="form-control" 
+	    [value]="points" 
+	    (blur)="handleUpdate()" 
+	    (input)="handlePointsUpdate($event.target.value)" 
+	    id="headling" 
+	    [placeholder]="t.getItem('Укажите стоимость')">
+    </label>
+</div>
+
+<form-group [rules]="config && config.validation" [values]="values">
+	<label for="">
+	  {{ t.getItem('Описание вопроса') }}
+	  <max-length *ngIf="maxLength" [max]=[maxLength] [t]="t" [current]="text.length"></max-length>
+	</label>
+	<app-ckeditor
+	  [model]="description"
+	  [key]="id + config.locale"
+	  [config]="config.ckeditor"
+	  (blur)="handleUpdate($event)"
+	  (change)="handleDescriptionUpdate($event)"
+	  debounce="500">
+	</app-ckeditor>
+</form-group>
+<hr>
+<elfinder-gallery 
+  [images]="images" 
+  [url]="config.elfinder.url" 
+  [id]="id + config.locale"
+  [singlePicture]="true"
+  [imgBaseUrl]="config.elfinder.imgBaseUrl"
+  [buttonText]="t.getItem('Выбрать изображение')"
+  [alertText]="t.getItem('Вы можете выбрать изображение')"
+  [lang]="config.elfinder.lang"
+  (onChange)="handleImageUpdate($event)">
+</elfinder-gallery>
+<hr>
+<div class="pl-25" style="margin-left: 25px">
+	<label class="checkbox">
+	  <input 
+		type="checkbox" 
+	    min="1"
+	    [checked]="allowCustom" 
+	    (change)="handleAllowCustomUpdate($event.target.value)"
+	  >
+	   {{ t.getItem('Свой вариант ответа?') }}
+	</label>
+</div>
+<hr>
+<ol [dragula]="dragId" [dragulaModel]="options">
+	<li *ngFor="let option of options;  let i = index" style="margin-top: 20px">
+		<input 
+			type="radio" 
+			[checked]="option.correct"
+			(click)="handleCurrentOptionSelected(i)"
+			[name]="'option' + dragId" 
+		/>
+
+		<input 
+		type="text" 
+		[value]="option.text" 
+		(blur)="handleUpdate()"
+		(input)="handleOptionTextUpdate(i, $event.target.value)"
+		[placeholder]="t.getItem('Текст ответа')" />
+		<button type="button" (click)="removeOption(i)" class="btn btn-danger" style="margin-left: 20px" *ngIf="options && options.length > 2">
+			<i class="fa fa-trash"></i> {{t.getItem('Удалить')}}
+		</button>
+	</li>
+</ol>
+
+<hr />
+
+<button type="button" class="btn btn-success" (click)="addOption()">
+	<i class="fa fa-plus"></i> {{t.getItem('Добавить вариант ответа')}}
+</button>
+
+	
