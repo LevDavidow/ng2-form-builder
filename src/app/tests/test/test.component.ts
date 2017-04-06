@@ -141,12 +141,12 @@ export class TestComponent implements OnInit, OnChanges {
   }
 
   getValues() {
-	this.questionName = this.values.name || '';
-	this.points = this.values.points;
-	this.description = this.values.description
-	this.image = this.values.image ? null : [this.values.image];
-	this.allowCustom = this.values.allowCustom
-	this.options = this.values.options
+  	this.questionName = this.values.name || '';
+  	this.points = this.values.points;
+  	this.description = this.values.description
+  	this.image = this.values.image ? [this.values.image] : [];
+  	this.allowCustom = this.values.allowCustom
+  	this.options = this.values.options
   }
 
   ngOnChanges(changes) {

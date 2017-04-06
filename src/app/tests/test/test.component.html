@@ -41,7 +41,7 @@
 	</label>
 	<app-ckeditor
 	  [model]="description"
-	  [key]="id + config.locale"
+	  [key]="dragId + config.locale"
 	  [config]="config.ckeditor"
 	  (blur)="handleUpdate()"
 	  (change)="handleDescriptionUpdate($event)"
@@ -50,9 +50,9 @@
 </form-group>
 <hr>
 <elfinder-gallery 
-  [images]="image ? [image] : undefined" 
+  [images]="image" 
   [url]="config.elfinder.url" 
-  [id]="id + config.locale"
+  [id]="dragId + config.locale"
   [singlePicture]="true"
   [imgBaseUrl]="config.elfinder.imgBaseUrl"
   [buttonText]="t.getItem('Выбрать изображение')"
@@ -95,7 +95,6 @@
 			<tr *ngFor="let option of options;  let i = index" [@fade]="'in'" >
 				<td width="20px"> 
 					<label class="radio-inline" style="width: 100%">
-						{{i}}
 						<input 
 							type="radio" 
 							[checked]="option.correct"
