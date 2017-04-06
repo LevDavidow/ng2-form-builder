@@ -1,17 +1,19 @@
 import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { PersistanceValidationService  } from '../../services/persistance-validation.service'
+
 @Component({
   selector: 'form-group',
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.css']
 })
 export class FormGroupComponent implements OnInit, OnDestroy, OnChanges {
-  private showError: boolean;
-  private hasError: boolean;
-  private unsubscribeErrors;
+  public showError: boolean;
+  public hasError: boolean;
+  public unsubscribeErrors;
 
   @Input() values = {};
   @Input() rules = null;
+  @Input() showBorder: boolean = false;
 
   constructor(private validation: PersistanceValidationService) {
     this.unsubscribeErrors = this
@@ -37,7 +39,7 @@ export class FormGroupComponent implements OnInit, OnDestroy, OnChanges {
     this.validate();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.validate();
   }
 

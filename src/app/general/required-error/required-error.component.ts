@@ -11,7 +11,7 @@ export class RequiredErrorComponent implements OnInit, OnChanges {
   @Input() values: Object = {};
   @Input() t: Locales = new Locales();
   
-  private hasError: boolean = false;
+  public hasError: boolean = false;
 
   constructor() { }
 
@@ -22,7 +22,7 @@ export class RequiredErrorComponent implements OnInit, OnChanges {
     }, false)
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.validate();
   }
 

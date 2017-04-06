@@ -23,11 +23,11 @@ export class VideoComponent implements OnInit {
   @Input() public config: any;
   @Output() update: EventEmitter<any>;
 
-  private text: string;
-  private imgUrl: string
-  private valid: boolean;
+  public text: string;
+  public imgUrl: string
+  public valid: boolean;
 
-  private videoProvider: VideoProvider;
+  public videoProvider: VideoProvider;
 
   constructor (private vimeo: VimeoService) {
     this.update = new EventEmitter();
@@ -115,7 +115,7 @@ export class VideoComponent implements OnInit {
     this.setFrameUrl();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues();
   }
 

@@ -14,14 +14,14 @@ import { Locales } from '../../models';
   styleUrls: ['./cite.component.css']
 })
 export class CiteComponent implements OnInit {
-  @Input() id: string;
-  @Input() values: any;
-  @Input() t: Locales;
+  @Input() public id: string;
+  @Input() public values: any;
+  @Input() public t: Locales;
   @Input() public config: any;
-  @Output() update: EventEmitter<any>;
+  @Output() public update: EventEmitter<any>;
 
-  private text: string;
-  private alternative: boolean;
+  public text: string;
+  public alternative: boolean;
 
   constructor () {
     this.update = new EventEmitter();
@@ -45,7 +45,7 @@ export class CiteComponent implements OnInit {
     this.alternative = this.values.alternative;
   }
   
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues();
   }
 

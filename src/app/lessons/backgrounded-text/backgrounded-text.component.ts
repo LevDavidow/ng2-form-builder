@@ -21,11 +21,11 @@ export class BackgroundedTextComponent implements OnInit, OnChanges {
   @Input() config: any;
   @Output() update: EventEmitter<any>;
 
-  private images: string[];
-  private text: string;
+  public images: string[];
+  public text: string;
 
-  private required: boolean;
-  private maxLength: number;
+  public required: boolean;
+  public maxLength: number;
 
   constructor () {
     this.update = new EventEmitter();
@@ -61,7 +61,7 @@ export class BackgroundedTextComponent implements OnInit, OnChanges {
     this.text = this.values.text;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues();
   }
 

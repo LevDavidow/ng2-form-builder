@@ -84,7 +84,7 @@ export class Locales {
     }
   }
   
-  public getItem(value: string): string {
+  public getItem(value?: string): string {
     return this.storage[value] || value;
   }
 }

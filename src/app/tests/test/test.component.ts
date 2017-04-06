@@ -4,7 +4,12 @@ import {
   OnChanges,
   Input, 
   Output, 
-  EventEmitter 
+  EventEmitter,
+  trigger,
+  state,
+  style,
+  transition,
+  animate
 } from '@angular/core';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -18,7 +23,23 @@ import { ITestOptionsOption } from '../models';
 @Component({
   selector: 'field-test',
   templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  styleUrls: ['./test.component.css'],
+  animations: [
+    trigger('fade', [
+      state('in', style({
+        opacity: '1'
+      })),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate(300)
+      ]),
+      transition(':leave', [
+        animate(300, style({opacity: '0'}))
+      ])
+    ])
+  ]
 })
 export class TestComponent implements OnInit, OnChanges {
   @Input() id: string;
@@ -28,12 +49,12 @@ export class TestComponent implements OnInit, OnChanges {
   @Output() update: EventEmitter<any>;
   public dragId: string;
 
-  private questionName: string;
-  private points: number;
-  private description: string;
-  private image: string[];
-  private allowCustom:boolean;
-  private options: ITestOptionsOption[];
+  public questionName: string;
+  public points: number;
+  public description: string;
+  public image: string[];
+  public allowCustom:boolean;
+  public options: ITestOptionsOption[];
 
   constructor(private dragulaService: DragulaService) {
   	this.update = new EventEmitter();
@@ -82,8 +103,7 @@ export class TestComponent implements OnInit, OnChanges {
   	this.handleUpdate();
   }
 
-  handleAllowCustomUpdate(bool) {
-  	//alert(bool);
+  handleAllowCustomUpdate() {
   	this.allowCustom = !this.allowCustom;
   	this.handleUpdate();
   }
@@ -111,12 +131,12 @@ export class TestComponent implements OnInit, OnChanges {
 
   handleUpdate(): void {
     this.update.emit({
-      	name: this.questionName,
-		points: +this.points,
-		description: this.description,
-		image: this.image[0],
-		allowCustom: this.allowCustom,
-		options: this.options
+      name: this.questionName,
+  		points: +this.points,
+  		description: this.description,
+  		image: this.image[0],
+  		allowCustom: this.allowCustom,
+  		options: this.options
     }); 
   }
 
@@ -129,7 +149,7 @@ export class TestComponent implements OnInit, OnChanges {
 	this.options = this.values.options
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues()
   }
 

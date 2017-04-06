@@ -6,7 +6,7 @@
   [model]="text"
   [key]="id + config.locale"
   [config]="config.ckeditor"
-  (blur)="handleUpdate($event)"
+  (blur)="handleUpdate()"
   (change)="handleTextUpdate($event)"
   debounce="500">
 </app-ckeditor>

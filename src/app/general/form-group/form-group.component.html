@@ -1,3 +1,5 @@
-<div [class.has-error]="showError && hasError" class="form-group">
+<div [class.has-error]="showError && hasError" class="form-group"
+	[class.border]="showError && hasError && showBorder"  
+>
   <ng-content></ng-content>  
 </div>

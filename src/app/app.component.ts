@@ -22,11 +22,11 @@ export class AppComponent  {
   private langsAutocompleted: ILangAutocompleteStatus = {};
   private currentLang = '';
 
-  private hasError: boolean;
+  public hasError: boolean;
   private submitButton: HTMLElement;
   private t: Locales = new Locales();
 
-  private hideValidationError: boolean = true;
+  public hideValidationError: boolean = true;
 
   private element: HTMLHtmlElement;
 

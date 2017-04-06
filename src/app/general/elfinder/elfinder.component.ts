@@ -22,10 +22,10 @@ export class ElfinderComponent implements OnInit, OnChanges {
   @Input() text: string = 'Загрузить файл';
   @Input() placeholder: string = 'Введите ссылку на файл' ;
   
-  private inputValue: string = '';
-  private _id: string;
+  public inputValue: string = '';
+  public _id: string;
 
-  constructor(private zone: NgZone) {
+  constructor(public zone: NgZone) {
     this.onChange = new EventEmitter();
   }
 
@@ -62,7 +62,7 @@ export class ElfinderComponent implements OnInit, OnChanges {
     this.onChange.emit(this.inputValue);
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.inputValue = this.fileUrl;
   }
 

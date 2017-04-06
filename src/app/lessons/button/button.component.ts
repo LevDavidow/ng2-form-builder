@@ -23,9 +23,9 @@ export class ButtonComponent implements OnInit, OnChanges {
   @Input() config: any;
   @Output() update: EventEmitter<any>;
 
-  private text: string = '';
-  private type: ButtonValueType;
-  private content: string = '';
+  public text: string = '';
+  public type: ButtonValueType;
+  public content: string = '';
 
   constructor () {
     this.update = new EventEmitter();
@@ -56,7 +56,7 @@ export class ButtonComponent implements OnInit, OnChanges {
     this.content = this.values.label;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues()
   }
 

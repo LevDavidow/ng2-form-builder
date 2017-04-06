@@ -1,6 +1,6 @@
 <div class="form-group" style="font-style: normal;">
   <label [for]="id">{{t.getItem('Выделенный текст')}}</label>
   <textarea width="100%" class="form-control" required [ngModelOptions]="{standalone: true}"
-    [(ngModel)]="text" [id]="id" (change)="handleUpdate($event)" id="headling" [placeholder]="t.getItem('Введите текст')">
+    [(ngModel)]="text" [id]="id" (change)="handleUpdate()" id="headling" [placeholder]="t.getItem('Введите текст')">
     </textarea>
 </div>

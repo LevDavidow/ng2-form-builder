@@ -18,7 +18,7 @@ import { FieldHooksService } from '../../services/field-hooks.service';
   providers: [FieldsService, FieldHooksService, ElfinderHeightMemoService, ]
 })
 export class ListWrapperComponent implements OnInit {
-  private locales: Locales;
+  public locales: Locales;
   public fields: Field[];
   public staticFields: Field[];
   public fieldNames: Array<{name: string, trivialName: string, icon?: string}> = [];
@@ -27,7 +27,7 @@ export class ListWrapperComponent implements OnInit {
   
   constructor(public fieldsService: FieldsService, private hooks: FieldHooksService) {}
 
-  private trackField(index, field) {
+  trackField(index, field) {
     return field.id;
   }
 

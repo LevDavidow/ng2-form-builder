@@ -31,8 +31,8 @@ export class FieldComponent implements OnInit, OnDestroy {
 
   private previewSubsripbtion;
   private valuesSubscription;
-  private componentRender: fieldNames.FieldComponentName;
-  private consts = fieldNames;
+  public componentRender: fieldNames.FieldComponentName;
+  public consts = fieldNames;
   
   constructor(private fieldsService: FieldsService) {}
 

@@ -1,16 +1,14 @@
 <form-group [rules]="config && config.validation" [values]="values">
 	<div class="validation">
 		<alert type="danger">Вопрос сформирован некорректно!</alert>	
-		<alert type="warning">Необходимо ввести заголовок и описание вопроса, а также либо дать пользователю возможность указать свой ответ, либо ввести больше двух варинатов ответа на выбор.
+		<alert type="warning">Необходимо ввести заголовок и описание вопроса, а также либо дать пользователю возможность указать свой ответ, либо ввести больше двух варинатов ответа на выбор. Правильный ответ не должен быть пустым.
 		</alert>	
 	</div>
 </form-group>
 
 <form-group [rules]="config && config.validation && config.validation.byKeys.name" [values]="{text: values.name}">
   <label>{{t.getItem('Заголовок вопроса')}}</label> 
-  <max-length *ngIf="name" [max]="maxLength" [t]="t" [current]="name.length"></max-length>
   <input 
-    [attr.maxlength]="maxLength" 
     type="text" 
     width="100%" 
     class="form-control" 
@@ -22,11 +20,10 @@
 </form-group>
 
 <div class="form-group">
-  <label [for]="name">{{t.getItem('Стоимость в баллах')}} 
-  	<input 
-	    [attr.maxlength]="maxLength" 
+  <label [for]="dragId + 'name'">{{t.getItem('Стоимость в баллах')}} 
+  	<input  
 	    type="number" 
-	    [id]="name"
+	    [id]="dragId + 'name'"
 	    width="100%" 
 	    min="1"
 	    class="form-control" 
@@ -38,23 +35,22 @@
     </label>
 </div>
 
-<form-group [rules]="config && config.validation" [values]="values">
+<form-group [rules]="config && config.validation" showBorder="true" [values]="values">
 	<label for="">
 	  {{ t.getItem('Описание вопроса') }}
-	  <max-length *ngIf="maxLength" [max]=[maxLength] [t]="t" [current]="text.length"></max-length>
 	</label>
 	<app-ckeditor
 	  [model]="description"
 	  [key]="id + config.locale"
 	  [config]="config.ckeditor"
-	  (blur)="handleUpdate($event)"
+	  (blur)="handleUpdate()"
 	  (change)="handleDescriptionUpdate($event)"
 	  debounce="500">
 	</app-ckeditor>
 </form-group>
 <hr>
 <elfinder-gallery 
-  [images]="images" 
+  [images]="image ? [image] : undefined" 
   [url]="config.elfinder.url" 
   [id]="id + config.locale"
   [singlePicture]="true"
@@ -71,37 +67,65 @@
 		type="checkbox" 
 	    min="1"
 	    [checked]="allowCustom" 
-	    (change)="handleAllowCustomUpdate($event.target.value)"
+	    (change)="handleAllowCustomUpdate()"
 	  >
 	   {{ t.getItem('Свой вариант ответа?') }}
 	</label>
 </div>
-<hr>
-<ol [dragula]="dragId" [dragulaModel]="options">
-	<li *ngFor="let option of options;  let i = index" style="margin-top: 20px">
-		<input 
-			type="radio" 
-			[checked]="option.correct"
-			(click)="handleCurrentOptionSelected(i)"
-			[name]="'option' + dragId" 
-		/>
+<form-group *ngIf="!allowCustom" [rules]="{specialTest: true}" [values]="values" [@fade]="'in'">
+	<hr>
+	<table class="table">
+		<colgroup>
+			<col width="5%">
+			<col width="50%">
+			<col width="15%">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>
+					Правильный ответ
+				</th>
+				<th>
+					Описание
+				</th>
+				<th>
+					
+				</th>
+			</tr>
+			<tr *ngFor="let option of options;  let i = index" [@fade]="'in'" >
+				<td width="20px"> 
+					<label class="radio-inline" style="width: 100%">
+						{{i}}
+						<input 
+							type="radio" 
+							[checked]="option.correct"
+							(click)="handleCurrentOptionSelected(i)"
+							[name]="'option' + dragId" 
+						/>
+					</label>
+				</td>
+				<td class="form-group">
+					<input 
+						type="text" 
+						[value]="option.text" 
+						(blur)="handleUpdate()"
+						(input)="handleOptionTextUpdate(i, $event.target.value)"
+						class="form-control" 
+						[placeholder]="t.getItem('Текст ответа')" 
+					/>
+				</td>
+				<td>
+					<button type="button" (click)="removeOption(i)" class="btn btn-danger" style="margin-left: 20px" *ngIf="options && options.length > 2">
+						<i class="fa fa-trash"></i> {{t.getItem('Удалить')}}
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<button type="button" class="btn btn-success" (click)="addOption()">
+		<i class="fa fa-plus"></i> {{t.getItem('Добавить вариант ответа')}}
+	</button>
+</form-group>
 
-		<input 
-		type="text" 
-		[value]="option.text" 
-		(blur)="handleUpdate()"
-		(input)="handleOptionTextUpdate(i, $event.target.value)"
-		[placeholder]="t.getItem('Текст ответа')" />
-		<button type="button" (click)="removeOption(i)" class="btn btn-danger" style="margin-left: 20px" *ngIf="options && options.length > 2">
-			<i class="fa fa-trash"></i> {{t.getItem('Удалить')}}
-		</button>
-	</li>
-</ol>
-
-<hr />
-
-<button type="button" class="btn btn-success" (click)="addOption()">
-	<i class="fa fa-plus"></i> {{t.getItem('Добавить вариант ответа')}}
-</button>
 
 	

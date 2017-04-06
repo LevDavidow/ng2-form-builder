@@ -2,8 +2,8 @@
   <input type="text" 
       [ngModelOptions]="{standalone: true}"
       [(ngModel)]="inputValue" 
-      (input)="handleChange($event)" 
+      (input)="handleChange()" 
       [id]="_id"
       [placeholder]="placeholder" class="form-control" ><span class="input-group-btn" >
-  <button type="button" (click)="openElfinder($event)" class="btn btn-default">{{text}}</button></span>
+  <button type="button" (click)="openElfinder()" class="btn btn-default">{{text}}</button></span>
 </div>

@@ -20,7 +20,7 @@ export class GalleryComponent implements OnInit {
   @Input() config: any;
   @Output() update: EventEmitter<any>;
 
-  private images: string[];
+  public images: string[];
 
   constructor () {
     this.update = new EventEmitter();
@@ -41,7 +41,7 @@ export class GalleryComponent implements OnInit {
     this.images = this.values.images;
   }
   
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues();
   }
 

@@ -2,10 +2,10 @@
   <ckeditor
     [(ngModel)]="model"
     [config]="config"
-    (ready)="handleReady($event)"
+    (ready)="handleReady()"
     (change)="handleUpdate($event)"
-    (focus)="handleFocus($event)"
-    (blur)="handleBlur($event)"
+    (focus)="handleFocus()"
+    (blur)="handleBlur()"
     [debounce]="debounce">
   </ckeditor>
 </div>

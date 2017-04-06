@@ -30,11 +30,11 @@ export class Test extends Field {
     allowCustom: false,
     options: [
       {
-        сurrent: false,
+        correct: true,
         text: ''
       },
       {
-        current: false,
+        correct: false,
         text: ''
       }
     ]

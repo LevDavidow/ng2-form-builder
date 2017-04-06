@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TextinputComponent implements OnInit {
   @Input() values: any;
-  private text: string;
+  public text: string;
 
   constructor () {}
 

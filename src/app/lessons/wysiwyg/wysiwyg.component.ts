@@ -22,10 +22,10 @@ export class WysiwygComponent implements OnInit, OnChanges {
   @Input() public config: any;
   @Output() update: EventEmitter<any>;
 
-  private text: string;
+  public text: string;
 
-  private required: boolean;
-  private maxLength: number;
+  public required: boolean;
+  public maxLength: number;
 
 
   constructor () {
@@ -52,7 +52,7 @@ export class WysiwygComponent implements OnInit, OnChanges {
     this.text =  this.values.text;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues()
   }
 

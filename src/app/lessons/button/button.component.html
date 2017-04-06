@@ -5,7 +5,7 @@
     <input type="text" class="form-control" required
       [ngModelOptions]="{standalone: true}"
       [(ngModel)]="content" 
-      (input)="handleUpdate($event)"
+      (input)="handleUpdate()"
       [placeholder]="t.getItem('Введите')" required >
   </label>
   

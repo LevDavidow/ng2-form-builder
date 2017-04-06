@@ -22,9 +22,15 @@ function isSpecialTestOptionsValid(options) {
     return false
   }
 
-  const noSelected = !options.filter(opt => opt.correct).length;
+  const selected = options.filter(opt => opt.correct);
+
+  const noSelected = !selected.length;
 
   if (noSelected) {
+    return false;
+  }
+
+  if (!selected[0].text) {
     return false;
   }
 
@@ -39,6 +45,8 @@ function isSpecialTestOptionsValid(options) {
   if (hasTextCounter < 2) {
     return false;
   }
+
+
 
   return true;
 
@@ -57,7 +65,7 @@ const validationRules = {
     }, false)
   },
   specialTest(values, type) {
-     return !isSpecialTestOptionsValid(values.options) && values.allowCustom === false
+     return values.allowCustom === true || isSpecialTestOptionsValid(values.options);
   },
   byKeys(values, configs) {
     return !Object.keys(configs)
@@ -139,11 +147,13 @@ export class PersistanceValidationService {
       .keys(fieldsById)
       .map(id => fieldsById[id])
       .map(field => { 
-        return !this.isFieldValid(field.values, field.config.validation) && field.name
+        return !this.isFieldValid(field.values, field.config.validation) && this.getErrorText(field);
       }).filter(value => !!value);
 
     this.notifiValidationResult();
   }
+
+
 
   public setShowErrors(is: boolean) {
     this.showErrors.next(is);
@@ -152,6 +162,10 @@ export class PersistanceValidationService {
 
   public isFieldNotEmpty(field) {
     return this.validateValuesByRule('required', true, field.values);
+  }
+
+  private getErrorText(field) {
+    return field.values.name ? field.name + ': ' + field.values.name : field.name;
   }
 
 }

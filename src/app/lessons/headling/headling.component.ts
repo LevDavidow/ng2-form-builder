@@ -21,9 +21,9 @@ export class HeadlingComponent implements OnInit, OnChanges {
   @Input() public config: any;
   @Output() update: EventEmitter<any>;
 
-  private text: string;
-  private maxLength: number;
-  private required: boolean;
+  public text: string;
+  public maxLength: number;
+  public required: boolean;
 
   constructor () {
     this.update = new EventEmitter();
@@ -49,7 +49,7 @@ export class HeadlingComponent implements OnInit, OnChanges {
     this.text =  this.values.text;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues();
   }
 

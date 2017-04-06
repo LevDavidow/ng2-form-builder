@@ -21,8 +21,8 @@ export class PictureComponent implements OnInit {
   @Input() config: any;
   @Output() update: EventEmitter<any>;
 
-  private images: string[];
-  private wide: boolean;
+  public images: string[];
+  public wide: boolean;
 
   constructor () {
     this.update = new EventEmitter();
@@ -50,7 +50,7 @@ export class PictureComponent implements OnInit {
     this.wide = this.values.wide;
   }
   
-  ngOnChanges() {
+  ngOnChanges(changes) {
     this.getValues();
   }
 

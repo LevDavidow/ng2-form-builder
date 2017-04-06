@@ -20,7 +20,7 @@ export class HighlightedTextComponent implements OnInit {
   @Input() public config: any;
   @Output() update: EventEmitter<any>;
 
-  private text: string;
+  public text: string;
 
   constructor () {
     this.update = new EventEmitter();
