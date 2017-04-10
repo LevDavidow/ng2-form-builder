@@ -41,7 +41,7 @@
 	</label>
 	<app-ckeditor
 	  [model]="description"
-	  [key]="dragId+ config.locale"
+	  [key]="dragId + config.locale"
 	  [config]="config.ckeditor"
 	  (blur)="handleUpdate()"
 	  (change)="handleDescriptionUpdate($event)"
@@ -50,7 +50,7 @@
 </form-group>
 <hr>
 <elfinder-gallery 
-  [images]="image ? [image] : undefined" 
+  [images]="image" 
   [url]="config.elfinder.url" 
   [id]="dragId + config.locale"
   [singlePicture]="true"

@@ -144,7 +144,7 @@ export class TestComponent implements OnInit, OnChanges {
   	this.questionName = this.values.name || '';
   	this.points = this.values.points;
   	this.description = this.values.description
-  	this.image = this.values.image ? null : [this.values.image];
+  	this.image = this.values.image ? [this.values.image] : [];
   	this.allowCustom = this.values.allowCustom
   	this.options = this.values.options
   }
