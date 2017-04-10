@@ -40,11 +40,12 @@ import { FieldsService } from '../services/fields.service';
     ])
   ]
 })
-export class FieldListComponent implements OnInit {
+export class FieldListComponent {
   @Input() fields: Field[];
-  private dragId: string;
   @Input() locales: Locales = new Locales();
 
+  private dragId: string;
+  
   public title: string = 'Вы уверенны?';
   public message: string = 'Вы не сможете восстановить содержимое этого поля';
 
@@ -68,15 +69,15 @@ export class FieldListComponent implements OnInit {
     })
   }
 
-  private trackFields(index, field) {
+  private trackFields(index: number, field: Field): string {
     return field.id;
   }
 
-  removeField(id) {
+  removeField(id: string): void {
     this.fieldsService.removeField(id);
   }
 
-  upField(index) {
+  upField(index: number): void {
     this.applyFieldMove(
       (index > 0),
       (index - 1),
@@ -84,7 +85,7 @@ export class FieldListComponent implements OnInit {
     )
   }
 
-  downField(index) {
+  downField(index: number): void {
     this.applyFieldMove(
       (index < this.fields.length - 1),
       (index + 1),
@@ -92,8 +93,14 @@ export class FieldListComponent implements OnInit {
     )
   }
   
-  private applyFieldMove(condition: boolean, newIndex: number, index: number): void {
-    if (condition) {
+  /**
+   * Helper for up/down move field through buttons clicks.
+   */
+  private applyFieldMove(
+    condition: boolean, 
+    newIndex: number, 
+    index: number): void {
+    if (condition === true) {
       this.fieldsService.updateFields(
         FieldListComponent
           .applyIndex(
@@ -105,19 +112,25 @@ export class FieldListComponent implements OnInit {
     }
   }
 
-  static applyIndex(arr, newIndex, oldIndex): Array<any> {
+  /**
+   * Flips values between indexes in given array
+   */
+  static applyIndex(
+    arr: Array<any>, 
+    newIndex: number, 
+    oldIndex: number
+  ): Array<any> {
     const temp = arr[newIndex];
     arr[newIndex] = arr[oldIndex];
     arr[oldIndex] = temp;
     return arr;
   }
 
-  ngOnInit() {
-
-  }
-  onChange() {
+  /**
+   * Updates field order across service
+   */
+  onChange(): void {
     this.fieldsService.updateFields(this.fields);
-    console.log(this.fields);
   }
 
 }

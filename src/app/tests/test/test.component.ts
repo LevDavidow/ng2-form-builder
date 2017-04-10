@@ -66,7 +66,7 @@ export class TestComponent implements OnInit {
       }
     });
 
-    dragulaService.dropModel.subscribe((value) => {
+    dragulaService.dropModel.subscribe((value: Array<any>) => {
       if (isCurrentDragula(value, this.dragId)) {
         this.handleUpdate();
       } 
