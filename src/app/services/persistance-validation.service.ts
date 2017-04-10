@@ -155,16 +155,16 @@ export class PersistanceValidationService {
 
 
 
-  public setShowErrors(is: boolean) {
+  public setShowErrors(is: boolean): void {
     this.showErrors.next(is);
   }
 
 
-  public isFieldNotEmpty(field) {
+  public isFieldNotEmpty(field): boolean {
     return this.validateValuesByRule('required', true, field.values);
   }
 
-  private getErrorText(field) {
+  private getErrorText(field): string {
     return field.values.name ? field.name + ': ' + field.values.name : field.name;
   }
 
