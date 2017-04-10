@@ -114,7 +114,6 @@ export class PersistanceValidationService {
   }
 
   private validateValuesByRule(rule, key, values) {
-    console.log(rule, key, values);
     return validationRules[rule](values, key);
   }
 

@@ -67,7 +67,6 @@ export class ListWrapperComponent implements OnInit {
         .setComponent(fields[id].component)
         .build()
      );
-    
     return this.fields;
   }
 

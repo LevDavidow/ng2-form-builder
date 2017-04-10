@@ -2,7 +2,8 @@ import {
   Component, 
   Input,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import { 
@@ -34,7 +35,7 @@ export class FieldComponent implements OnInit, OnDestroy {
   public componentRender: fieldNames.FieldComponentName;
   public consts = fieldNames;
   
-  constructor(private fieldsService: FieldsService) {}
+  constructor(private fieldsService: FieldsService, private ref: ChangeDetectorRef) {}
 
   private getField(id = this.id):Field {
     return this.fieldsService.fieldsById[this.id];
@@ -42,12 +43,13 @@ export class FieldComponent implements OnInit, OnDestroy {
 
   handleUpdate() {
     this.values = this.getField(this.id).values;
+    this.config = this.getField(this.id).config;
   }
 
   updateValues($values) {
     this.fieldsService.updateField(this.id, $values);
   }
-
+ 
   ngOnInit() {
     const field: Field = this.getField(this.id);
     

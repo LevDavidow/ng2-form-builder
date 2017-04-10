@@ -64,11 +64,15 @@ export default class FieldsBuilder {
     return this;
   } 
   
-  public setConfig(config?: any) {
-    if (config) {
-      this.config = config;
-    }
+  public setConfig(config: any = {}, locale?: string) {
     
+    this.config = config;
+
+    if (locale) {
+      this.config.locale = locale;
+      this.config = Object.assign({} ,this.config, {locale})
+    }
+
     return this;
   }
 

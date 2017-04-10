@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone} from '@angular/core';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -8,7 +8,10 @@ import { FieldHooksService } from './field-hooks.service'
 
 import { PersistanceValidationService } from './persistance-validation.service';
 
+
 import { Field, FieldsById } from '../models';
+
+import { FieldUpdater } from './field/field.updater'
 
 import { FieldComponentName } from '../consts'
 
@@ -52,13 +55,15 @@ export class FieldsService {
 
   private config: any = fieldsConfig;
   private persist: PersistentFields;
-  private locale: string;
+  private _locale: string;
 
+  private fieldUpdater: FieldUpdater;
 
   constructor(
     private validation: PersistanceValidationService, 
     private sharedFields: FieldsStorageService,
-    private autocompleted: LangAutocompleteStatusService
+    private autocompleted: LangAutocompleteStatusService,
+    private zone: NgZone
   ) {
     this.sharedFields.fieldAdded.subscribe(this.fieldAdded.bind(this));
 
@@ -67,15 +72,26 @@ export class FieldsService {
     this.sharedFields.fieldRemoved.subscribe(this.fieldRemoved.bind(this));
 
     this.sharedFields.fieldUpdated.subscribe(this.fieldUpdated.bind(this));
+
+    this.fieldUpdater = new FieldUpdater();
   }
 
   get fieldsByIdArray() {
     return Object.keys(this.fieldsById).map(id => this.fieldsById[id]);
   }
 
+  get locale() {
+    return this._locale;
+  }
+
+  set locale(val) {
+    this._locale = val
+  }
+
   public init(config) {
     this.config = config;
     this.applyConfig();
+
     this.inited.next('done');
   }
 
@@ -106,6 +122,7 @@ export class FieldsService {
           .keys(this.config.staticFields)
           .map(id => this.createStaticField(id))
           .reduce((result, field) => {
+
             result[field.id] = field;
             return result;
           }, {})
@@ -140,7 +157,7 @@ export class FieldsService {
       );
 
       this.fieldsOrder = this.persist.getOrder();
-
+      this.sharedFields.setOrder(this.persist.getOrder(), true);
     }).then(() => {
       this.notifyFieldsChange();
     }).then(() => {
@@ -180,7 +197,7 @@ export class FieldsService {
   updateField(id: string, values: Object): void {
     const target = this.fieldsById[id];
 
-    target.touched = true;
+    this.fieldUpdater.touch(target, values);
 
     if (this.validation.isFieldNotEmpty(target) || target.touched) {
       target['values'] = values;
@@ -199,34 +216,28 @@ export class FieldsService {
   }
 
   private fieldAdded(config) {
-    const target = this.createField(
-      config.component, config.id
-    );
-    this.fieldsById[config.id] = target;
-    
-    this.notifyFieldsChange();
-    this.notifyFieldCountChange(target.component);
-  }
+    if (!this.fieldsById[config.id]) {
+      
+      this.zone.run(() => {
+         const target = this.createField(
+          config.component, config.id
+        );
+         this.fieldsById[config.id] = target;
 
+         this.notifyFieldsChange();
+         this.notifyFieldCountChange(target.component);
+      });
+    }   
+  }
 
   private fieldUpdated(config) {
     const target: Field = this.fieldsById[config.id];
     
-    const forceSyncValues = target.config &&  target.config.forceSync &&
-      target.config.forceSync.reduce((shouldUpdate, key) => {
-        shouldUpdate = shouldUpdate || target.values[key] !== config.values[key];
-        return shouldUpdate
-      }, false);
-
-   
-
-    if (!target.touched || forceSyncValues) {
-      target['values'] = config.values;
-      this.notifyFieldChange(config.id);
-      this.autocompleted.setAutocomplete(this.locale);
-    }
+    this.fieldUpdater.run(target, config, () => {
+        this.notifyFieldChange(config.id);
+        this.autocompleted.setAutocomplete(this.locale);
+    });
   }
-  
 
   private orderChanged(order: string[]) {
     this.fieldsOrder = order;
@@ -259,13 +270,13 @@ export class FieldsService {
   ): Field {
     
     const Field = new FieldsBuilder();
-    
+
     return Field.setComponent(component)
          .setId(id)
          .setName(this.config.dynamicFields[component]['trivialName'])
          .setTouched(touched)
          .setLocales(this.config.dynamicFields[component]['config']['locales'])
-         .setConfig(this.config.dynamicFields[component]['config'])
+         .setConfig(this.config.dynamicFields[component]['config'], this.locale + '')
          .setValues(values)
          .build();
   }
@@ -282,7 +293,7 @@ export class FieldsService {
      .setTouched(touched)
      .setName(this.config.staticFields[id]['trivialName'])
      .setLocales(this.config.staticFields[id]['config']['locales'])
-     .setConfig(this.config.staticFields[id]['config'])
+     .setConfig(this.config.staticFields[id]['config'], this.locale)
      .setValues(values)
      .build();
   }
@@ -310,3 +321,4 @@ export class FieldsService {
     this.save();
   }
 }
+

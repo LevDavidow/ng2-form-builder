@@ -13,7 +13,7 @@ interface IFieldAdded {
   id: string;
 }
 
-interface IFieldUpdated {
+export interface IFieldUpdated {
   id: string;
   values: Object;
 }
@@ -28,10 +28,12 @@ export class FieldsStorageService {
 
 
   constructor() {}
-  
-  setOrder(order: string[]) {
+
+  setOrder(order: string[], sillence?: boolean) {
     this.fieldsOrder = order;
-    this.notifyOrderUpdate();
+    if (!sillence) {
+      this.notifyOrderUpdate();
+    }
   }
 
   addField(field: IFieldAdded) {

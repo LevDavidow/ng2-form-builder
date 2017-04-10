@@ -14,7 +14,8 @@ export class FormGroupComponent implements OnInit, OnDestroy, OnChanges {
   @Input() values = {};
   @Input() rules = null;
   @Input() showBorder: boolean = false;
-
+  @Input() hideContentIfNoError: boolean = false;
+  
   constructor(private validation: PersistanceValidationService) {
     this.unsubscribeErrors = this
       .validation
@@ -27,7 +28,6 @@ export class FormGroupComponent implements OnInit, OnDestroy, OnChanges {
     return !this.rules;
   }
   validate() {
-    console.log(this);
     if (this.noRules()) {
       this.hasError = false;
     } else {

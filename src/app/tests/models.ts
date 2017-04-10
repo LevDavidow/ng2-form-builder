@@ -1,8 +1,11 @@
 import { Field, FieldOptions } from '../models';
+import { generateUID } from '../helpers';
 
 export interface ITestOptionsOption {
   correct: boolean
   text: string
+  uid: string
+  touched: boolean
 }
 
 interface ITestOptions extends FieldOptions {
@@ -28,20 +31,25 @@ export class Test extends Field {
     description: '',
     points: 1,
     allowCustom: false,
-    options: [
-      {
-        correct: true,
-        text: ''
-      },
-      {
-        correct: false,
-        text: ''
-      }
-    ]
+    options: null
   }
 
   constructor(opts: ITestOptions) {
     super(opts);
+    this.defaultValues['options'] = [
+        {  
+          uid: 'mock1',
+          correct: true,
+          touched: false,
+          text: ''
+        },
+        {  
+          uid: 'mock2',
+          correct: false,
+          touched: false,
+          text: ''
+        }
+    ]
     super.applyDefaults(this.defaultValues);
   }
 }

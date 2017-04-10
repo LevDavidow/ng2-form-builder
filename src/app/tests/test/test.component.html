@@ -1,5 +1,5 @@
-<form-group [rules]="config && config.validation" [values]="values">
-	<div class="validation">
+<form-group [rules]="config && config.validation" [values]="values" hideContentIfNoError="true">
+	<div class="validation hide-no-error">
 		<alert type="danger">Вопрос сформирован некорректно!</alert>	
 		<alert type="warning">Необходимо ввести заголовок и описание вопроса, а также либо дать пользователю возможность указать свой ответ, либо ввести больше двух варинатов ответа на выбор. Правильный ответ не должен быть пустым.
 		</alert>	
@@ -92,7 +92,7 @@
 					
 				</th>
 			</tr>
-			<tr *ngFor="let option of options;  let i = index" [@fade]="'in'" >
+			<tr *ngFor="let option of options;  let i = index; trackBy:trackOption" [@fade]="'in'" >
 				<td width="20px"> 
 					<label class="radio-inline" style="width: 100%">
 						<input 

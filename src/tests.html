@@ -29,13 +29,13 @@
 <form action="">
   <app-root config='{
     "staticFields": {
-      "fcounter": {
-		"trivialName": "Колличество баллов",
-        "type": "COUNTER",
-        "config": {
-          "reduce": {
-			"type": "TEST",
-			"key": "points"
+      "testPoints": {
+  		  "trivialName": "Колличество баллов",
+          "type": "COUNTER",
+          "config": {
+            "reduce": {
+  			"type": "TEST",
+  			"key": "points"
           },
           "locales": {
             "Заголовок": "Заголовок",
@@ -45,7 +45,7 @@
           }
         }
       },
-      "f1": {
+      "testTitle": {
         "trivialName": "Заголовок теста",
         "type": "HEADLING",
         "config": {
@@ -61,7 +61,7 @@
           }
         }
       },
-      "f2": {
+      "testDesc": {
         "trivialName": "Описание теста",
         "type": "WYSIWYG",
         "config": {
@@ -111,7 +111,6 @@
 			},
 			"specialTest": "true"
          },
-          "forceSync": ["points"],
           "elfinder": {
             "url": "http://scorim_adm.dev/elfinder/manager",
             "lang": "ru",
@@ -168,8 +167,8 @@
       }
     }
   }'>Loading...</app-root>
-  <input type="text" id="save_fields" value='[{"id":"5e2731cfeb","values":{"images":["/files/test.jpg"],"wide":false},"config":{"elfinder":{"url":"/academy-files1/manager","lang":"ru","imgBaseUrl":"http://uteka_academy.dev"},"locales":{"Выбрать изображение":"Выбрать изображение","Вы должны выбрать изображение":"Вы должны выбрать изображение","Растянуть на весь экран?":"Растянуть на весь экран?"}},"name":"Картинка","component":"PICTURE","locales":{"storage":{"Выбрать изображение":"Выбрать изображение","Вы должны выбрать изображение":"Вы должны выбрать изображение","Растянуть на весь экран?":"Растянуть на весь экран?"}},"defaultValues":{"wide":false,"images":[]},"changed":true}]'>
-  <input type="text" id="save_fields2">
+  <input type="text" id="save_fields" value='{"dynamicFields":[{"id":"fd9c2c7323","touched":false,"component":"TEST","values":{"name":"Вопрос 1 ","description":"<p><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\n","points":123,"allowCustom":false,"options":[{"uid":"mock1","correct":false,"touched":true,"text":"нет"},{"uid":"mock2","correct":true,"touched":true,"text":"да"}]}},{"id":"7cea671155","touched":false,"component":"TEST","values":{"name":"Вопрос2","description":"<p><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\n","points":82,"allowCustom":true,"options":[{"uid":"mock1","correct":true,"touched":false,"text":""},{"uid":"mock2","correct":false,"touched":false,"text":""}]}}],"staticFields":{"testPoints":{"id":"testPoints","touched":false,"component":"COUNTER","values":{"id":"testPoints","name":"Колличество баллов","static":true,"locales":{"Заголовок":"Заголовок","Введите заголовок":"Введите заголовок","Заполните обязательное поле":"Заполните обязательное поле","символов":"символов"},"component":"COUNTER","config":{"reduce":{"type":"TEST","key":"points"},"locales":{"Заголовок":"Заголовок","Введите заголовок":"Введите заголовок","Заполните обязательное поле":"Заполните обязательное поле","символов":"символов"},"locale":"Русский","validation":{}},"values":{"number":328},"touched":true,"number":328}},"testTitle":{"id":"testTitle","touched":false,"component":"HEADLING","values":{"text":"Первый тест"}},"testDesc":{"id":"testDesc","touched":false,"component":"WYSIWYG","values":{"text":"<p>фывйцуывфвфы</p>\n"}}}}'>
+  <input type="text" id="save_fields2" value='{"dynamicFields":[{"id":"fd9c2c7323","touched":false,"component":"TEST","values":{"name":"Вопрос 1 ","description":"<p><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\n","points":123,"allowCustom":false,"options":[{"uid":"mock1","correct":false,"touched":true,"text":"нет"},{"uid":"mock2","correct":true,"touched":true,"text":"да"}]}},{"id":"7cea671155","touched":false,"component":"TEST","values":{"name":"Вопрос2","description":"<p><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><span style=\"color:rgb(0, 0, 0); font-family:open sans,arial,sans-serif; font-size:14px\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\n","points":82,"allowCustom":true,"options":[{"uid":"mock1","correct":true,"touched":false,"text":""},{"uid":"mock2","correct":false,"touched":false,"text":""}]}}],"staticFields":{"testPoints":{"id":"testPoints","touched":false,"component":"COUNTER","values":{"id":"testPoints","name":"Колличество баллов","static":true,"locales":{"Заголовок":"Заголовок","Введите заголовок":"Введите заголовок","Заполните обязательное поле":"Заполните обязательное поле","символов":"символов"},"component":"COUNTER","config":{"reduce":{"type":"TEST","key":"points"},"locales":{"Заголовок":"Заголовок","Введите заголовок":"Введите заголовок","Заполните обязательное поле":"Заполните обязательное поле","символов":"символов"},"locale":"Русский","validation":{}},"values":{"number":328},"touched":true,"number":328}},"testTitle":{"id":"testTitle","touched":false,"component":"HEADLING","values":{"text":"Первый тест"}},"testDesc":{"id":"testDesc","touched":false,"component":"WYSIWYG","values":{"text":"<p>фывйцуывфвфы</p>\n"}}}}'>
   <button type="submit" id="submitStatus" class="btn btn-success">Лол</button>
 </form>
 </body>

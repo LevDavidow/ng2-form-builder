@@ -41,7 +41,7 @@ import { ITestOptionsOption } from '../models';
     ])
   ]
 })
-export class TestComponent implements OnInit, OnChanges {
+export class TestComponent implements OnInit {
   @Input() id: string;
   @Input() values: any;
   @Input() t: Locales;
@@ -76,6 +76,8 @@ export class TestComponent implements OnInit, OnChanges {
   addOption() {
   	this.options.push({
   		text: '',
+      touched: false,
+      uid: generateUID(),
   		correct: false
   	})
 
@@ -86,6 +88,7 @@ export class TestComponent implements OnInit, OnChanges {
   	this.options = this.options.filter((item, itemIndex) => {
   		return itemIndex !== index;
   	})
+    this.handleUpdate();
   }
 
   handleNameUpdate(name) {
@@ -110,6 +113,7 @@ export class TestComponent implements OnInit, OnChanges {
   
   handleImageUpdate(imgs) {
   	this.image = imgs
+    this.handleUpdate();
   }
 
   handleCurrentOptionSelected(current) {
@@ -124,6 +128,7 @@ export class TestComponent implements OnInit, OnChanges {
   	this.options.forEach((item, itemIndex) => {
   		if (index === itemIndex) {
   			item.text = text;
+        item.touched = true;
   		}
   	})
   	this.handleUpdate();
@@ -145,13 +150,71 @@ export class TestComponent implements OnInit, OnChanges {
   	this.points = this.values.points;
   	this.description = this.values.description
   	this.image = this.values.image ? [this.values.image] : [];
-  	this.allowCustom = this.values.allowCustom
+  	this.allowCustom = this.values.allowCustom;
   	this.options = this.values.options
   }
 
-  ngOnChanges(changes) {
-    this.getValues()
+  trackOption(index, option) {
+    return option.uid;
   }
+
+  private hasOptionsDiff(old, newOpts) {
+    if (old.length !== newOpts.length) {
+      return true;
+    }
+
+    for (let index in old) {
+      const oldOption = old[index];
+      const newOption = newOpts[index];
+
+      if (oldOption.correct !== newOption.correct) {
+        return true;
+      }
+
+      if (oldOption.text !== newOption.text) {
+        return true;
+      }
+
+    }
+
+    return false;
+
+  }
+
+  private hasImageDiff(current, val) {
+    if(!current && val) {
+      return true;
+    }
+
+    if (val && !current[0]) {
+      return true;
+    }
+
+    if (current && current[0] !== val) {
+      return true;
+    }
+
+    return false;
+  }
+
+  ngDoCheck() {
+
+    let doUpdate =  this.points !== this.values.points
+      || this.allowCustom !== this.values.allowCustom
+      || this.questionName !== this.values.name 
+      || this.description !== this.values.description
+      || this.hasImageDiff(this.image, this.values.image)
+      || this.hasOptionsDiff(this.options, this.values.options)
+
+    console.log(this, doUpdate);
+    
+    if (doUpdate) {
+      this.getValues();
+    }
+
+
+  }
+
 
   ngOnInit() {
    this.getValues()

@@ -36,6 +36,7 @@ export abstract class Field {
     this.values = opts.values || {}; 
     this.component = opts.component;
     this.config = opts.config || {};
+
     this.config.locale = this.config.locale || '';
     this.config.validation = this.config.validation || {};
     this.locales = new Locales(opts.locales);
