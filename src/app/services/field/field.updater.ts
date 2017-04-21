@@ -109,7 +109,7 @@ export class FieldUpdater  {
     if (isRegularUpdate) {
       this.runCallback = true;
 
-      FieldUpdater.doUpdateFieldVealues(target, config);
+      FieldUpdater.doUpdateFieldValues(target, config);
 
     } 
     
@@ -125,10 +125,11 @@ export class FieldUpdater  {
   }
 
   private shouldUpdateFieldValues() {
+  	console.log(this.target);
     return !this.target.touched;
   }
 
-  static doUpdateFieldVealues(target, config) {
+  static doUpdateFieldValues(target, config) {
     target['values'] = config.values;
   }
 

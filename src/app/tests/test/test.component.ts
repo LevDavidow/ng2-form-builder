@@ -205,16 +205,12 @@ export class TestComponent implements OnInit {
       || this.description !== this.values.description
       || this.hasImageDiff(this.image, this.values.image)
       || this.hasOptionsDiff(this.options, this.values.options)
-
-    console.log(this, doUpdate);
     
     if (doUpdate) {
       this.getValues();
     }
 
-
   }
-
 
   ngOnInit() {
    this.getValues()

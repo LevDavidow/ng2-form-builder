@@ -29,7 +29,7 @@
 <form action="">
   <app-root config='{
     "staticFields": {
-      "f1": {
+      "lessonTitle": {
         "trivialName": "Заголовок урока",
         "type": "HEADLING",
         "config": {
@@ -45,7 +45,7 @@
           }
         }
       },
-      "f2": {
+      "lessonDesc": {
         "trivialName": "Описание урока",
         "type": "BACKGROUNDED_TEXT",
         "config": {
@@ -82,7 +82,7 @@
           }
         }
       },
-      "f4": {
+      "lessonConclusions": {
         "trivialName": "Выводы",
         "type": "WYSIWYG",
         "config": {
@@ -184,6 +184,17 @@
       "BUTTON": {
         "trivialName": "Кнопка",
         "config": {
+          "validation": {
+            "button": true,
+            "byKeys": {
+              "label": {
+                "required": true
+              },
+              "text": {
+                "required": true
+              }
+            }
+          },
           "elfinder": {
             "url": "http://scorim_adm.dev/elfinder/manager",
             "lang": "ru"
@@ -278,8 +289,8 @@
       }
     }
   }'>Loading...</app-root>
-  <input type="text" id="save_fields" value='[{"id":"5e2731cfeb","values":{"images":["/files/test.jpg"],"wide":false},"config":{"elfinder":{"url":"/academy-files1/manager","lang":"ru","imgBaseUrl":"http://uteka_academy.dev"},"locales":{"Выбрать изображение":"Выбрать изображение","Вы должны выбрать изображение":"Вы должны выбрать изображение","Растянуть на весь экран?":"Растянуть на весь экран?"}},"name":"Картинка","component":"PICTURE","locales":{"storage":{"Выбрать изображение":"Выбрать изображение","Вы должны выбрать изображение":"Вы должны выбрать изображение","Растянуть на весь экран?":"Растянуть на весь экран?"}},"defaultValues":{"wide":false,"images":[]},"changed":true}]'>
-  <input type="text" id="save_fields2">
+  <input type="text" id="save_fields" value='{"dynamicFields":[{"id":"b17565f342","touched":false,"component":"BACKGROUNDED_TEXT","values":{"text":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a suscipit lacus. Donec dui est, posuere at ante a, faucibus tincidunt justo. Suspendisse et rutrum lectus, in iaculis tortor. Curabitur id rutrum odio. Curabitur tempor tempor ipsum, id ultrices massa varius vitae. Curabitur mollis pharetra vestibulum. Mauris sit amet maximus libero. Duis nec odio sed nulla tristique vehicula.</p>\n","images":[]}},{"id":"1b030a3975","touched":false,"component":"CITE","values":{"alternative":true,"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a suscipit lacus. Donec dui est, posuere at ante a, faucibus tincidunt justo. Suspendisse et rutrum lectus, in iaculis tortor. Curabitur id rutrum odio. Curabitur tempor tempor ipsum, id ultrices massa varius vitae. Curabitur mollis pharetra vestibulum. Mauris sit amet maximus libero. Duis nec odio sed nulla tristique vehicula."}},{"id":"dee80d533f","touched":false,"component":"VIDEO","values":{"text":"Dmz7aZ0sGsk","url":"https://www.youtube.com/watch?v=Dmz7aZ0sGsk","type":"youtube"}},{"id":"d0fa7a1f47","touched":false,"component":"BUTTON","values":{"text":"/files/2e13740dfb259e64d1e0dcd86aada158.jpg","type":"current","content":"","label":"123"}},{"id":"5b3769c8c9","touched":false,"component":"GALLERY","values":{"images":["/files/maxresdefault.jpg"]}},{"id":"f8c9091de8","touched":false,"component":"PICTURE","values":{"wide":true,"images":["/files/test.jpg"]}},{"id":"8c069f3dff","touched":false,"component":"WYSIWYG","values":{"text":"<p>https://www.youtube.com/watch?v=Dmz7aZ0sGsk</p>\n"}},{"id":"568621094a","touched":false,"component":"HEADLING","values":{"text":"3321"}}],"staticFields":{"lessonTitle":{"id":"lessonTitle","touched":false,"component":"HEADLING","values":{"text":"Сколько будет 2х2"}},"lessonDesc":{"id":"lessonDesc","touched":false,"component":"BACKGROUNDED_TEXT","values":{"text":"<p>https://agile.flustex.com/issues/3747</p>\n","images":["/files/VaranasiBoat_EN-US9434398456_1920x1200.jpg"]}},"lessonConclusions":{"id":"lessonConclusions","touched":false,"component":"WYSIWYG","values":{"text":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a suscipit lacus. Donec dui est, posuere at ante a, faucibus tincidunt justo. Suspendisse et rutrum lectus, in iaculis tortor. Curabitur id rutrum odio. Curabitur tempor tempor ipsum, id ultrices massa varius vitae. Curabitur mollis pharetra vestibulum. Mauris sit amet maximus libero. Duis nec odio sed nulla tristique vehicula.</p>\n"}}}}'>
+  <input type="text" id="save_fields2" value='{"dynamicFields":[{"id":"b17565f342","touched":false,"component":"BACKGROUNDED_TEXT","values":{"text":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a suscipit lacus. Donec dui est, posuere at ante a, faucibus tincidunt justo. Suspendisse et rutrum lectus, in iaculis tortor. Curabitur id rutrum odio. Curabitur tempor tempor ipsum, id ultrices massa varius vitae. Curabitur mollis pharetra vestibulum. Mauris sit amet maximus libero. Duis nec odio sed nulla tristique vehicula.</p>\n","images":[]}},{"id":"1b030a3975","touched":false,"component":"CITE","values":{"alternative":true,"text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a suscipit lacus. Donec dui est, posuere at ante a, faucibus tincidunt justo. Suspendisse et rutrum lectus, in iaculis tortor. Curabitur id rutrum odio. Curabitur tempor tempor ipsum, id ultrices massa varius vitae. Curabitur mollis pharetra vestibulum. Mauris sit amet maximus libero. Duis nec odio sed nulla tristique vehicula."}},{"id":"dee80d533f","touched":false,"component":"VIDEO","values":{"text":"Dmz7aZ0sGsk","url":"https://www.youtube.com/watch?v=Dmz7aZ0sGsk","type":"youtube"}},{"id":"d0fa7a1f47","touched":false,"component":"BUTTON","values":{"text":"/files/2e13740dfb259e64d1e0dcd86aada158.jpg","type":"current","content":"","label":"123"}},{"id":"5b3769c8c9","touched":false,"component":"GALLERY","values":{"images":["/files/maxresdefault.jpg"]}},{"id":"f8c9091de8","touched":false,"component":"PICTURE","values":{"wide":true,"images":["/files/test.jpg"]}},{"id":"8c069f3dff","touched":false,"component":"WYSIWYG","values":{"text":"<p>https://www.youtube.com/watch?v=Dmz7aZ0sGsk</p>\n"}},{"id":"568621094a","touched":false,"component":"HEADLING","values":{"text":"3321"}}],"staticFields":{"lessonTitle":{"id":"lessonTitle","touched":false,"component":"HEADLING","values":{"text":"Сколько будет 2х2"}},"lessonDesc":{"id":"lessonDesc","touched":false,"component":"BACKGROUNDED_TEXT","values":{"text":"<p>https://agile.flustex.com/issues/3747</p>\n","images":["/files/VaranasiBoat_EN-US9434398456_1920x1200.jpg"]}},"lessonConclusions":{"id":"lessonConclusions","touched":false,"component":"WYSIWYG","values":{"text":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a suscipit lacus. Donec dui est, posuere at ante a, faucibus tincidunt justo. Suspendisse et rutrum lectus, in iaculis tortor. Curabitur id rutrum odio. Curabitur tempor tempor ipsum, id ultrices massa varius vitae. Curabitur mollis pharetra vestibulum. Mauris sit amet maximus libero. Duis nec odio sed nulla tristique vehicula.</p>\n"}}}}'>
   <button type="submit" id="submitStatus" class="btn btn-success">Лол</button>
 </form>
 </body>

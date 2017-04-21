@@ -1,13 +1,22 @@
 <form action="">
-
-  <label for="">
-    {{t.getItem('Текст на кнопке')}}
-    <input type="text" class="form-control" required
-      [ngModelOptions]="{standalone: true}"
-      [(ngModel)]="content" 
-      (input)="handleUpdate()"
-      [placeholder]="t.getItem('Введите')" required >
-  </label>
+  
+  <form-group [rules]="config && config.validation" [values]="values" hideContentIfNoError="true">
+    <div class="validation hide-no-error">
+      <alert type="danger">Кнопка настроена некорректно!</alert>  
+      <alert type="warning">Необходимо указать текст и ссылку.</alert>  
+    </div>
+  </form-group>
+  
+  <form-group [rules]="config && config.validation && config.validation.byKeys.content" [values]="{text: values.label}">
+    <label for="">
+      {{t.getItem('Текст на кнопке')}}
+      <input type="text" class="form-control" required
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="content" 
+        (input)="handleUpdate()"
+        [placeholder]="t.getItem('Введите')" required >
+    </label>
+  </form-group>
   
   <div class="radio">
     <label>
@@ -31,6 +40,7 @@
   </div>
 
 </form>
+<form-group [rules]="config && config.validation && config.validation.byKeys.text" [values]="{text: values.text}">
 <label for="">
   {{t.getItem('Вставте ссылку или выберите файл')}}
   <elfinder
@@ -43,3 +53,4 @@
     (onChange)="handleTextUpdate($event)">
   </elfinder>
 </label>
+</form-group>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-import {processMaxLength, isInvalidValue} from '../models'
+import { processMaxLength, isInvalidValue } from '../models';
+import * as FieldTypes from '../consts';
 
 interface IValidationsRules {
   [method: string]: (any) => boolean
@@ -66,6 +67,9 @@ const validationRules = {
   },
   specialTest(values, type) {
      return values.allowCustom === true || isSpecialTestOptionsValid(values.options);
+  },
+  button(values) {
+    return values.text && values.label && values.type;
   },
   byKeys(values, configs) {
     return !Object.keys(configs)
@@ -164,7 +168,15 @@ export class PersistanceValidationService {
   }
 
   private getErrorText(field): string {
-    return field.values.name ? field.name + ': ' + field.values.name : field.name;
+    let errorText:string = ''
+    switch (field.component) {
+      case FieldTypes.BUTTON:
+        errorText = field.values.label ? field.name + ': ' + field.values.label : field.name;
+        break;
+      default: 
+        errorText = field.values.name ? field.name + ': ' + field.values.name : field.name;
+    }
+    return errorText;
   }
 
 }

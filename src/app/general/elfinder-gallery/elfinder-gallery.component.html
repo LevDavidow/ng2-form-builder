@@ -18,7 +18,7 @@
 </div>
 
 <div class="validation">
-  <alert type="danger" *ngIf="!images || images.length === 0">
+  <alert [type]="alertType" *ngIf="!images || images.length === 0">
     {{alertText}}
   </alert>
 </div>

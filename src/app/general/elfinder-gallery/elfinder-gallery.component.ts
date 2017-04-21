@@ -17,6 +17,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 export class ElfinderGalleryComponent implements OnInit {
   @Output() onChange: EventEmitter<string[]>;
   
+
   @Input() images: string[] = []
   @Input() id: string = 'w2';
   @Input() lang: string = 'ru';
@@ -29,6 +30,8 @@ export class ElfinderGalleryComponent implements OnInit {
   
   @Input() alertText: string = 'Вы должны выбрать изображение';
   @Input() buttonText: string = 'Выбрать изображение';
+
+  @Input() alertType: string = 'danger';
 
   private elfinderNode: any;
 

@@ -12,7 +12,9 @@ import {
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import { Field, Locales } from '../models';
+
 import { generateUID, isCurrentDragula } from '../helpers';
+
 import { FieldsService } from '../services/fields.service';
 
 @Component({
@@ -67,6 +69,49 @@ export class FieldListComponent {
     })
   }
 
+  private trackFields(index: number, field: Field): string {
+    return field.id;
+  }
+
+  removeField(id: string): void {
+    this.fieldsService.removeField(id);
+  }
+
+  upField(index: number): void {
+    this.applyFieldMove(
+      (index > 0),
+      (index - 1),
+      index
+    )
+  }
+
+  downField(index: number): void {
+    this.applyFieldMove(
+      (index < this.fields.length - 1),
+      (index + 1),
+      index
+    )
+  }
+  
+  /**
+   * Helper for up/down move field through buttons clicks.
+   */
+  private applyFieldMove(
+    condition: boolean, 
+    newIndex: number, 
+    index: number): void {
+    if (condition === true) {
+      this.fieldsService.updateFields(
+        FieldListComponent
+          .applyIndex(
+            [...this.fields], 
+            newIndex,
+            index,
+          )
+      ) 
+    }
+  }
+
   /**
    * Flips values between indexes in given array
    */
@@ -80,60 +125,12 @@ export class FieldListComponent {
     arr[oldIndex] = temp;
     return arr;
   }
- 
-  private getFieldId(index: number, field: Field): string {
-    return field.id;
-  }
-
-  /**
-   * Helper for up/down move field through buttons clicks.
-   */
-  private applyFieldMove(
-    condition: boolean, 
-    newIndex: number, 
-    index: number): void {
-    if (condition) {
-      this.fieldsService.updateFields(
-        FieldListComponent
-          .applyIndex(
-            [...this.fields], 
-            newIndex,
-            index,
-          )
-      ) 
-    }
-  }
-
-  public removeField(id: string): void {
-    this.fieldsService.removeField(id);
-  }
-
-  /**
-   * Increment field order 
-   */
-  public upField(index: number): void {
-    this.applyFieldMove(
-      (index > 0),
-      (index - 1),
-      index
-    )
-  }
-
-   /**
-   * Decrement field order 
-   */
-  public downField(index: number): void {
-    this.applyFieldMove(
-      (index < this.fields.length - 1),
-      (index + 1),
-      index
-    )
-  }
 
   /**
    * Updates field order across service
    */
-  public onChange(): void {
+  onChange(): void {
     this.fieldsService.updateFields(this.fields);
   }
+
 }

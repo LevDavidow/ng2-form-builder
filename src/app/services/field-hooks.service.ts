@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FieldsService } from './fields.service'
 
+import { Field } from '../models';
 import * as fieldTypes from '../consts'
+
+type TWatcher = 'counter';
 
 interface IWatcher {
 	type: fieldTypes.FieldComponentName,
-	run: string
+	run: TWatcher 
 }
 
 interface ICounter {
@@ -34,21 +37,21 @@ export class FieldHooksService {
 	  		this.apply(target.component);
 	  	});
 
-	  	this.provider.fieldCountChange.subscribe(component => {
+	  	this.provider.fieldCountChange.subscribe((component: fieldTypes.FieldComponentName) => {
 	  		this.apply(component);
 	  	})
 	})
   }
 
-  apply(component) {
-  	this.watchers.forEach((watcher) => {
+  apply(component: fieldTypes.FieldComponentName): void {
+  	this.watchers.forEach((watcher: IWatcher) => {
   		if (watcher.type === component) {
   			this.applyWatcher(watcher.run)
   		}
   	})
   }
 
-  private applyWatcher(type) {
+  private applyWatcher(type: TWatcher): void {
   	switch (type) {
   		case "counter":
   			this.runCounters();
@@ -67,7 +70,7 @@ export class FieldHooksService {
 
   }
 
-  private setupCounters() {
+  private setupCounters(): void {
   	this.fetchCounters().forEach((item) => {
 	  	const reduce = item.config.reduce;
 	  	
@@ -84,7 +87,7 @@ export class FieldHooksService {
 	  })
   }
 
-  private runCounters() {
+  private runCounters(): void {
   	this.counters.forEach(counter => {
   		const currentValue = 
   			this.provider.fieldsById[counter.id]['values']['number'];

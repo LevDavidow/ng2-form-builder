@@ -137,7 +137,7 @@ export class FieldsService {
         .persist
         .getValues()
         .reduce((result: any, field: Field) => {
-
+          console.log(field);
           if (field.static) {
             result[field.id] = this.createStaticField(
               field.id, 
@@ -235,7 +235,9 @@ export class FieldsService {
     
     this.fieldUpdater.run(target, config, () => {
         this.notifyFieldChange(config.id);
-        this.autocompleted.setAutocomplete(this.locale);
+        if (!target.touched) {
+          this.autocompleted.setAutocomplete(this.locale);
+        }
     });
   }
 

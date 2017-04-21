@@ -102,7 +102,7 @@ export class Button extends Field {
   protected defaultValues: Object = {
     text: '',
     type: 'current',
-    content: ''
+    label: ''
   }
 
   constructor(opts: TextOptions) {

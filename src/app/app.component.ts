@@ -95,12 +95,12 @@ export class AppComponent  {
 
         const lang = this.autompleteLang.getAutocompletedLang();
 
-        if (lang) {
+        if (lang && lang !== this.currentLang) {
+          console.log(lang);
           e.preventDefault();
           this.focus();
           this.activateTab(lang);
         }
-        
         
         if (this.hasError) {
           e.preventDefault();

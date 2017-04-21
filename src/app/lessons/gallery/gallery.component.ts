@@ -18,6 +18,7 @@ export class GalleryComponent implements OnInit {
   @Input() values: any;
   @Input() t: Locales;
   @Input() config: any;
+
   @Output() update: EventEmitter<any>;
 
   public images: string[];
